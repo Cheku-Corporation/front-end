@@ -1,7 +1,7 @@
 import {Speed, LocalGasStation, Place, DeviceThermostat} from "@mui/icons-material";
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import {Breadcrumb} from "../components/Breadcrumb";
+import {Breadcrumb} from "@/components/Breadcrumb";
 import React from "react";
 
 
@@ -68,12 +68,7 @@ export const Dashboard = () => {
     ];
 
     return (<>
-            <div className={"flex flex-row items-end"}>
-                {/*<h1 className="text-5xl font-bold">Citroën C4</h1>*/}
-                {/*<div className="badge badge-accent text-lg ml-2 mb-2">Desligado</div>*/}
-                <Breadcrumb/>
-
-            </div>
+            <Breadcrumb/>
             <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-3">
                 {cards.map(( card,index) => {
                     return (
