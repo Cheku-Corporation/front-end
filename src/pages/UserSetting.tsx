@@ -1,4 +1,4 @@
-import {AddCarForm} from "@/components/AddCarForm";
+import {AddCarForm} from "@/components/forms/AddCarForm";
 
 export const UserSetting = () => {
     return (

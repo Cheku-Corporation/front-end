@@ -5,7 +5,6 @@ import {Landing} from "@/pages/Landing";
 import {SpeedDetails} from "@/pages/SpeedDetails";
 import {UserSetting} from "@/pages/UserSetting";
 import {Live} from "@/pages/Live";
-import {Testes} from "@/pages/Testes";
 
 
 function App() {
@@ -17,9 +16,8 @@ function App() {
                 <Route path={"/dashboard"} element={<Dashboard/>}/>
                 <Route path={"/login"} element={<Login/>}/>
                 <Route path={"/car/speed"} element={<SpeedDetails/>}/>
-                <Route path={"/settings"} element={<UserSetting/>}/>                <Route path={"/settings"} element={<UserSetting/>}/>
+                <Route path={"/settings"} element={<UserSetting/>}/>
                 <Route path={"/live"} element={<Live/>}/>
-                <Route path={"/testes"} element={<Testes/>}/>
                 <Route path={"*"} element={<Landing/>}/>
             </Routes>
         </BrowserRouter>
