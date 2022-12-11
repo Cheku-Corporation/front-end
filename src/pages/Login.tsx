@@ -2,9 +2,15 @@ import {LoginForm} from "@/components/forms/LoginForm";
 
 export const Login = () => {
     return (
-        <div className="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6">
-            <h1 className="text-5xl font-bold mb-6 tracking-wider">Login</h1>
-                <LoginForm/>
+        <div className="h-screen">
+            <div className="flex justify-center items-center h-full bg-base-200 bg-opacity-90">
+                <div className="card shadow-xl w-2/6 bg-base-100">
+                    <div className="card-body w-full">
+                        <h2 className="card-title text-6xl">Login</h2>
+                        <LoginForm/>
+                    </div>
+                </div>
+            </div>
         </div>
 
     )
