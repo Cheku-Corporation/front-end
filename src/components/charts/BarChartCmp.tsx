@@ -28,7 +28,7 @@ export const BarChartCmp = () => {
                     <Legend/>
                     <Bar
                         dataKey="speed"
-                        fill="#65c3c8"
+                        fill="#e0a82e"
                     />
                 </BarChart>
             </ResponsiveContainer>

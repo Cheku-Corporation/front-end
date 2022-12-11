@@ -1,15 +1,14 @@
 import {Navbar} from "@/components/Navbar";
-import {Breadcrumb} from "@/components/Breadcrumb";
 
-export const Base = ({children} : any) => {
+export const Base = ({children}: any) => {
 
     return (
-        <div className={"bg-slate-200 h-full"}>
-            <Navbar/>
+            <div className={"h-full bg-base-200 bg-opacity-90"}>
+                <Navbar/>
 
-            <div className="container mx-auto">
-                {children}
+                <div className="container mx-auto">
+                    {children}
+                </div>
             </div>
-        </div>
     )
 }

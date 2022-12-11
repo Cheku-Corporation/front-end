@@ -21,7 +21,7 @@ export const Dashboard = () => {
                 </select>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 pb-4">
 
                 <Statistics/>
 
@@ -40,7 +40,7 @@ export const Dashboard = () => {
                 <div className="card shadow-xl lg:col-span-5 xl:col-span-3 bg-base-100">
                     <div className="card-body">
                         <div className={"card-title text-primary text-3xl"}>Last trip</div>
-                        <MapContainer className={"h-[60em]"} zoom={13} scrollWheelZoom={true}>
+                        <MapContainer className={"h-[40em]"} zoom={13} scrollWheelZoom={true}>
                             <TileLayer
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

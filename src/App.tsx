@@ -5,6 +5,8 @@ import {Landing} from "@/pages/Landing";
 import {SpeedDetails} from "@/pages/SpeedDetails";
 import {Live} from "@/pages/Live";
 import {SignIn} from "@/pages/SignIn";
+import React from "react";
+import {SignCar} from "@/pages/SignCar";
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
                 <Route path={"/live"} element={<Live/>}/>
                 <Route path={"*"} element={<Landing/>}/>
                 <Route path={"/signIn"} element={<SignIn/>}/>
+                <Route path={"/signCar"} element={<SignCar/>}/>
+
             </Routes>
         </BrowserRouter>
     )
