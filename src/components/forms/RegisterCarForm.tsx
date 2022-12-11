@@ -32,7 +32,7 @@ export const RegisterCarForm = () => {
         },
         validationSchema: Yup.object({
             model: Yup.string().required('Required'),
-            matricula: Yup.string().required('Required'),
+            matricula: Yup.string().matches(/^(([A-Z]{2}-\d{2}-(\d{2}|[A-Z]{2}))|(\d{2}-(\d{2}-[A-Z]{2}|[A-Z]{2}-\d{2})))$/,"Invalid Format").required('Required'),
             inpectionDate: Yup.date().required('Required'),
             insuranceDate: Yup.date().required('Required'),
         }),
