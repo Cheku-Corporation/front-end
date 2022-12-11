@@ -40,7 +40,7 @@ export const LineChartCmp = () => {
                     <Line
                         type="monotone"
                         dataKey="velocity"
-                        stroke="#65c3c8"
+                        stroke="#e0a82e"
                         dot={false}
                     />
                 </LineChart>
