@@ -1,12 +1,12 @@
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import SettingsIcon from '@mui/icons-material/Settings';
 import InfoIcon from '@mui/icons-material/Info';
 import 'car-makes-icons/dist/style.css';
-import {useState} from "react";
+import React, {useState} from "react";
 import {Circle} from "@mui/icons-material";
+import {Link} from "react-router-dom";
 
-export const Breadcrumb = () => {
+export const Breadcrumb = (props: { page: number }) => {
     const userCars = [{
         id: 0, name: "Audi TT", icon: "car-audi"
     }, {
@@ -17,16 +17,14 @@ export const Breadcrumb = () => {
 
     const options = [{
         id: 0, name: "Dashboard", icon: DashboardIcon
-    },{
+    }, {
         id: 1, name: "Live", icon: Circle
     }, {
-        id: 2, name: "Settings", icon: SettingsIcon
-    },  {
         id: 3, name: "About", icon: InfoIcon
     }]
 
     const [currentCar, setCurrentCar] = useState(userCars[0])
-    const [currentOption, setCurrentOption] = useState(options[0])
+    const [currentOption, setCurrentOption] = useState(options[props.page])
 
     return (
         <div className="flex items-center">
@@ -34,7 +32,7 @@ export const Breadcrumb = () => {
                 <label tabIndex={0} className="btn btn-ghost m-1 text-xl text-primary"><i
                     className={`${currentCar.icon} text-4xl`}></i>{currentCar.name}</label>
                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                    {userCars.map((car) => (<li key={car.id}>
+                    {userCars.map((car, index) => (<li key={car.id}>
                         <a className={car.id === currentCar.id ? "bg-primary" : ""}
                            onClick={() => car.id !== currentCar.id ? setCurrentCar(car) : null}>
                             <i className={`${car.icon} text-4xl`}></i>
@@ -55,12 +53,12 @@ export const Breadcrumb = () => {
                 </label>
 
                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                    {options.map((option) => (<li key={option.id}>
-                        <a className={option.id === currentOption.id ? "bg-primary" : ""}
-                           onClick={() => option.id !== currentOption.id ? setCurrentOption(option) : null}>
-                            <option.icon/>
-                            {option.name}
-                        </a>
+                    {options.map((option,index) => (<li key={option.id}>
+                            <Link to={"/"+options[index].name.toLowerCase()} className={option.id === currentOption.id ? "bg-primary" : ""}
+                                  onClick={() => option.id !== currentOption.id ? setCurrentOption(option) : null}>
+                                <option.icon/>
+                                {option.name}
+                            </Link>
                     </li>))}
 
 

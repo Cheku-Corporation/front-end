@@ -1,5 +1,11 @@
 import {Base} from "@/components/Base";
 import {Speed} from "@mui/icons-material";
+import {Statistics} from "@/components/Statistics";
+import {MapContainer, TileLayer} from "react-leaflet";
+import {LeftletRoutingMachine} from "@/components/LeftletRoutingMachine";
+import {Breadcrumb} from "@/components/Breadcrumb";
+import {useState} from "react";
+import {LiveStatistics} from "@/components/LiveStatistics";
 
 export const Live = () => {
 
@@ -60,36 +66,53 @@ export const Live = () => {
         ]
     ]
 
+    const [option, setOption] = useState(0)
     return (
         <Base>
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 pt-2">
+            <div className="flex flex-col lg:flex-row gap-4 pt-2">
+                <Breadcrumb page={1}/>
+                <div className="flex flex-1 flex-row gap-4 justify-around content-center text-xl">
+                    <div className={"my-auto"}><span className={"font-bold"}>Current Location:</span> Longe</div>
+                    <div className={"my-auto"}><span className={"font-bold"}>Current User:</span> V1cente</div>
+                </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 pb-4">
+                <LiveStatistics/>
 
-                {data.map((card, index) => {
-                    return (
-                        // <div className="stats stats-vertical shadow">
-                        <div className="bg-base-100 grid grid-rows-3 grid-flow-col gap-4 text-xl">
+                <div className="card shadow-xl lg:col-span-4 xl:col-span-2 bg-base-100">
+                    <div className="card-body">
+                        <div className={"card-title text-primary text-3xl"}>Current Location</div>
+                        <MapContainer className={"h-[30em]"} zoom={13} scrollWheelZoom={true}>
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            <LeftletRoutingMachine/>
+                        </MapContainer>
+                    </div>
+                </div>
 
-                            {card.map((stat, index) => {
-                                return (
-                                    <div>
-                                        {/*<div className="stat-figure text-primary">*/}
-                                        {/*    <stat.icon className={`text-${stat.iconColor}`} sx={{fontSize: '4em'}}/>*/}
-                                        {/*</div>*/}
-                                        {/*<div className="stat-title w-full">{stat.name}</div>*/}
-                                        {/*<div className="stat-value text-primary">{stat.value}</div>*/}
-                                        <div className="col-span-2 stat-title">{stat.name}</div>
-                                        <div className="row-span-2 col-span-2 stat-value">{stat.value}</div>
-                                    </div>
-
-                                )
-                            })}
-                            {/*<div className="row-span-3 ..."><stat.icon className={`text-${stat.iconColor}`} sx={{fontSize: '4em'}}/></div>*/}
-                            <div className="row-span-3 ..."><Speed className={`text-primay`} sx={{fontSize: '6em'}}/>
+                <div className="card shadow-xl lg:col-span-4 xl:col-span-2 bg-base-100">
+                    <div className="card-body">
+                        <div className={"card-title text-primary text-3xl"}>Tire Status</div>
+                        <div className={"grid gap-3 grid-cols-2"}>
+                            <div className="radial-progress"
+                                 style={{"--value": "70", "--size": "12rem", "--thickness": "1em"}}>70%
+                            </div>
+                            <div className="radial-progress"
+                                 style={{"--value": "70", "--size": "12rem", "--thickness": "1em"}}>70%
+                            </div>
+                            <div className="radial-progress"
+                                 style={{"--value": "70", "--size": "12rem", "--thickness": "1em"}}>70%
+                            </div>
+                            <div className="radial-progress"
+                                 style={{"--value": "70", "--size": "12rem", "--thickness": "1em"}}>70%
                             </div>
                         </div>
-                    )
+                    </div>
+                </div>
 
-                })}
+
             </div>
         </Base>
     )
