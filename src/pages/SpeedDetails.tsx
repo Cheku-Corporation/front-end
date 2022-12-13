@@ -1,5 +1,7 @@
 import {Base} from "@/components/Base";
 import {useEffect, useState} from "react";
+import {VELOCITIES_URL} from "@/URLS";
+import {useAppContext} from "@/providers/AppProvider";
 
 interface SpeedData {
     date: string,
@@ -10,14 +12,15 @@ interface SpeedData {
 export const SpeedDetails = () => {
 
     const [speedData, setSpeedData] = useState<SpeedData[]>([]);
-
+    const {user} = useAppContext();
     useEffect(() => {
-        fetch('http://localhost:8080/api/car/1/velocities/100',
+        fetch(VELOCITIES_URL("1", 100),
             {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + user.token
                 },
 
             }
