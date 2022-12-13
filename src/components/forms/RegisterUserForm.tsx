@@ -1,14 +1,16 @@
 import {useFormik} from "formik";
 import * as Yup from 'yup';
 import {useState} from "react";
+import {useAppContext} from "@/providers/AppProvider";
 
 export const RegisterUserForm = () => {
 
     const [tab, setTab] = useState(false)
+    const {navigate} = useAppContext();
 
     const formik = useFormik({
         initialValues: {
-            email: '', password: '', passwordConfirmation: '', name: '', groupName: '', groupId: '',
+            email: '', password: '', passwordConfirmation: '', name: '', groupName: '', groupId: '',role: 'USER'
         }, validationSchema: Yup.object({
             email: Yup.string().email('Invalid email address').required('Required'),
             password: Yup.string().required('Required'),
@@ -17,8 +19,22 @@ export const RegisterUserForm = () => {
         }),
 
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
-        }
+            fetch('http://localhost:8080/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(values, null, 2)
+            }).then(response => response.json())
+                .then(data => {
+
+                    navigate("/login")
+                } )
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        },
+
     })
 
     const handleCheckboxChange = () => {
@@ -75,10 +91,10 @@ export const RegisterUserForm = () => {
                         {formik.touched.groupName ? formik.errors.groupName : null}
                     </span>
             </label>
-            {tab ? <input type="text" placeholder="Group Name"
-                          className="input input-bordered" {...formik.getFieldProps('groupName')}/> :
-                <input type="text" placeholder="Group ID"
-                       className="input input-bordered" {...formik.getFieldProps('groupId')}/>}
+            {tab ? <input type="text" placeholder="Group ID"
+                          className="input input-bordered" {...formik.getFieldProps('groupId')}/> :
+                <input type="text" placeholder="Group Name"
+                       className="input input-bordered" {...formik.getFieldProps('groupName')}/>}
 
 
             <button type="submit" className="btn btn-primary mt-4">Register</button>

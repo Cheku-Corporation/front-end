@@ -1,8 +1,10 @@
 import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {useEffect, useState} from "react";
+import {useAppContext} from "@/providers/AppProvider";
 
 export const LineChartCmp = () => {
     const [lineChartData, setLineChartData] = useState<any[]>([])
+    const {user} = useAppContext();
     useEffect(() => {
         fetch('http://localhost:8080/api/car/1/velocities/100',
             {
@@ -10,7 +12,7 @@ export const LineChartCmp = () => {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    'Access-Control-Allow-Origin':'*'
+                    'Authorization': 'Bearer ' + user.token
                 },
 
             }
