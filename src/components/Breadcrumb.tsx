@@ -20,7 +20,7 @@ export const Breadcrumb = (props: { page: number }) => {
     }, {
         id: 1, name: "Live", icon: Circle
     }, {
-        id: 3, name: "About", icon: InfoIcon
+        id: 3, name: "Info", icon: InfoIcon
     }]
 
     const [currentCar, setCurrentCar] = useState(userCars[0])
@@ -46,10 +46,8 @@ export const Breadcrumb = (props: { page: number }) => {
 
             <div className="dropdown">
                 <label tabIndex={0} className="btn btn-ghost text-xl text-primary">
-                    <>
                         {currentOption.icon ? <currentOption.icon/> : null}
                         {currentOption.name}
-                    </>
                 </label>
 
                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">

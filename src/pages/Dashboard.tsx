@@ -6,11 +6,15 @@ import {BarChartCmp} from "@/components/charts/BarChartCmp";
 import {MapContainer, TileLayer} from "react-leaflet";
 import {LeftletRoutingMachine} from "@/components/LeftletRoutingMachine";
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
+import {useAppContext} from "@/providers/AppProvider";
 
 export const Dashboard = () => {
+    const {user} = useAppContext();
+
 
     return (
         <Base>
+            <p>{JSON.stringify(user)}</p>
             <div className={"flex flex-row pt-2  justify-between"}>
                 <Breadcrumb page={0}/>
 
