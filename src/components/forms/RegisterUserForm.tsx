@@ -2,6 +2,7 @@ import {useFormik} from "formik";
 import * as Yup from 'yup';
 import {useState} from "react";
 import {useAppContext} from "@/providers/AppProvider";
+import {REGISTER_URL} from "@/URLS";
 
 export const RegisterUserForm = () => {
 
@@ -19,7 +20,7 @@ export const RegisterUserForm = () => {
         }),
 
         onSubmit: values => {
-            fetch('http://localhost:8080/api/register', {
+            fetch(REGISTER_URL(), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

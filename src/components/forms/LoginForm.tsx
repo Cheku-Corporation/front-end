@@ -5,6 +5,7 @@ import {useFormik} from 'formik';
 
 import * as Yup from 'yup';
 import {useAppContext} from "@/providers/AppProvider";
+import {LOGIN_URL} from "@/URLS";
 
 
 export const LoginForm = () => {
@@ -28,7 +29,7 @@ export const LoginForm = () => {
             onSubmit: (values, {setSubmitting, setStatus, setErrors}) => {
 
 
-                fetch('http://localhost:8080/login', {
+                fetch(LOGIN_URL(), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
