@@ -16,12 +16,12 @@ function App() {
             <Routes>
                 <Route path={"/"} element={<Landing/>}/>
                 <Route path={"/login"} element={<Login/>}/>
-                <Route path={"/dashboard"} element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
-                <Route path={"/live"} element={<ProtectedRoute><Live/></ProtectedRoute>}/>
-                <Route path={"/car/speed"} element={<ProtectedRoute><SpeedDetails/></ProtectedRoute>}/>
-                <Route path={"/info"} element={<ProtectedRoute><InfoCar/></ProtectedRoute>}/>
+                <Route path={"/dashboard"} element={<ProtectedRoute page={Dashboard}/>}/>
+                <Route path={"/live"} element={<ProtectedRoute page={Live}/>} />
+                <Route path={"/car/speed"} element={<ProtectedRoute page={SpeedDetails}/>}/>
+                <Route path={"/info"} element={<ProtectedRoute page={InfoCar}/>}/>
                 <Route path={"/signIn"} element={<SignIn/>}/>
-                <Route path={"/signCar"} element={<SignCar/>}/>
+                <Route path={"/signCar"} element={<ProtectedRoute page={SignCar}/>}/>
                 <Route path={"*"} element={<Landing/>}/>
             </Routes>
     )

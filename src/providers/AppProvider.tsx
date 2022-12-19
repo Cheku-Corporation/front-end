@@ -1,37 +1,39 @@
 import React, {ContextType, createContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
-type User = {
-    // id: string;
-    // name: string;
-    // email: string;
+export type User = {
+    idUser: number;
+    name: string;
+    email: string;
     token: string;
+    groupId: number;
+    groupName: string;
 }
 
 type AppContextType = {
     user: User;
     logout: () => void;
-    login: (user: User) => void;
     navigate: (path: string) => void;
     checkUser: () => boolean;
+    setUser: (user: { idUser: number; groupName: string; groupId: number; name: string; email: string; token: string }) => void;
 }
 
 
 const AppContext = createContext<AppContextType>({} as AppContextType);
 
 export const AppProvider = ({children}: {children: React.ReactNode}) => {
-    const initialUser = {
-
-        token: "",
-
+    const initialUser:User = {
+        idUser: -1,
+        name: '',
+        email: '',
+        token: '',
+        groupId: -1,
+        groupName: ''
     }
 
     const [user, setUser] = useState<User>(initialUser);
 
 
     const navigate = useNavigate();
-    const login = (user: User) => {
-        setUser(user);
-    }
     const logout = () => {
         setUser(initialUser);
     }
@@ -41,7 +43,7 @@ export const AppProvider = ({children}: {children: React.ReactNode}) => {
     }
 
     return (
-        <AppContext.Provider value={{user,login, logout,navigate,checkUser}}>
+        <AppContext.Provider value={{user,setUser, logout,navigate,checkUser}}>
             {children}
         </AppContext.Provider>
     )
