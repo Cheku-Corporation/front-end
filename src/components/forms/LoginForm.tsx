@@ -4,7 +4,7 @@ import {useFormik} from 'formik';
 import {useAppContext} from '@/providers/AppProvider';
 
 import * as Yup from 'yup';
-import {LOGIN_URL} from "@/URLS";
+import {LOGIN_URL, USER_DATA_URL} from "@/URLS";
 import {useSearchParams} from "react-router-dom";
 
 
@@ -31,7 +31,7 @@ export const LoginForm = () => {
 
                 const token = loginData.Authorization;
 
-                const userResponse = await fetch(`http://localhost:8080/api/user/${values.email}`, {
+                const userResponse = await fetch(USER_DATA_URL(values.email), {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

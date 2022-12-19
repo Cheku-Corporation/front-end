@@ -2,6 +2,7 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import React, {useEffect, useState} from "react";
 import {useAppContext} from "@/providers/AppProvider";
+import {ADD_CAR_URL, CAR_MODELS_URL} from "@/URLS";
 
 export const RegisterCarForm = () => {
     const [cars,setCars] = useState<any[]>([])
@@ -12,7 +13,7 @@ export const RegisterCarForm = () => {
     const {user, navigate} = useAppContext();
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/carModels",
+        fetch(CAR_MODELS_URL(),
             {
                 method: 'GET',
                 headers: {
@@ -48,7 +49,7 @@ export const RegisterCarForm = () => {
             let inspectionDateTimestamp = new Date(values.inpectionDate).getTime()
             let insuranceDateTimestamp = new Date(values.insuranceDate).getTime()
             if (carsModel.length === 3 && cars.filter(car => car.brand === carsModel[0] && car.model === carsModel[1] && car.year === carsModel[2]).length !== 0) {
-                fetch("http://localhost:8080/api/car",
+                fetch(ADD_CAR_URL(),
                     {
                         method: 'POST',
                         headers: {
