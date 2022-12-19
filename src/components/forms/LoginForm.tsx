@@ -1,16 +1,60 @@
 import React from 'react';
 
 import {useFormik} from 'formik';
-
+import {useAppContext} from '@/providers/AppProvider';
 
 import * as Yup from 'yup';
-import {useAppContext} from "@/providers/AppProvider";
-import {LOGIN_URL} from "@/URLS";
+import {LOGIN_URL, USER_DATA_URL} from "@/URLS";
+import {useSearchParams} from "react-router-dom";
 
 
 export const LoginForm = () => {
 
-        const {navigate, login} = useAppContext();
+        const {navigate, user, setUser} = useAppContext();
+        const [queryParameters] = useSearchParams()
+        let token = ""
+        const fetchLogin = async (values: { email: string, password: string }) => {
+            try {
+                const loginResponse = await fetch(LOGIN_URL(), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({email: values.email, password: values.password}, null, 2),
+                });
+
+                const loginData = await loginResponse.json();
+
+                if (loginData.hasOwnProperty('error')) {
+                    throw new Error(loginData.error);
+                }
+
+                const token = loginData.Authorization;
+
+                const userResponse = await fetch(USER_DATA_URL(values.email), {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: token,
+                    },
+                });
+
+                const userData = await userResponse.json();
+
+                return {
+                    idUser: userData.idUser,
+                    name: userData.name,
+                    email: userData.email,
+                    token,
+                    groupId: userData.groupId,
+                    groupName: userData.groupName,
+                };
+            } catch (error : any) {
+                return {error: error.message};
+            }
+        };
+
+
         const formik = useFormik({
 
             initialValues: {
@@ -28,28 +72,22 @@ export const LoginForm = () => {
 
             onSubmit: (values, {setSubmitting, setStatus, setErrors}) => {
 
-
-                fetch(LOGIN_URL(), {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({email: values.email, password: values.password}, null, 2)
-
-                }).then(response => response.json())
-                    .then(data => {
-                        console.log(data)
-                        if (data.hasOwnProperty('Authorization')) {
-                            login({token: data.Authorization});
-                            navigate("/dashboard")
-                        } else {
-                            // setErrors({authentification: data.error})
+                fetchLogin(values).then((data: any) => {
+                        if (data.hasOwnProperty('error')) {
                             setErrors({authentification: "Invalid email or password"})
+                        } else {
+
+                            setUser(data)
+                            console.log(data)
+                            if (queryParameters.get('registered') !== null && queryParameters.get('registered') === 'true') {
+                                navigate("/signCar")
+                            } else {
+                                navigate("/dashboard")
+                            }
                         }
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
+                    }
+                )
+
             }
         })
 

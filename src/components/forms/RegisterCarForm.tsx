@@ -1,26 +1,32 @@
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useAppContext} from "@/providers/AppProvider";
+import {ADD_CAR_URL, CAR_MODELS_URL} from "@/URLS";
 
 export const RegisterCarForm = () => {
+    const [cars,setCars] = useState<any[]>([])
 
-    //Create array of cars with name, model and year id
-    const cars = [
-        {id: 1, name: 'Audi', model: 'A4', year: 2019},
-        {id: 1, name: 'Audi', model: 'A4', year: 2019},
-        {id: 2, name: 'Citroen', model: 'C4', year: 2018},
-        {id: 3, name: 'Ford', model: 'Fiesta', year: 2017},
-        {id: 4, name: 'Honda', model: 'Civic', year: 2016},
-        {id: 5, name: 'Hyundai', model: 'i30', year: 2015},
-        {id: 6, name: 'Kia', model: 'Ceed', year: 2014},
-        {id: 7, name: 'Mazda', model: '3', year: 2013},
-        {id: 8, name: 'Mercedes', model: 'A-Class', year: 2012},
-        {id: 9, name: 'Nissan', model: 'Micra', year: 2011},
-        {id: 10, name: 'Peugeot', model: '208', year: 2010},
-        {id: 11, name: 'Renault', model: 'Clio', year: 2009},
-        {id: 12, name: 'Skoda', model: 'Fabia', year: 2008},
-        {id: 13, name: 'Toyota', model: 'Yaris', year: 2007},
-    ];
+    const [selectedCar, setSelectedCar] = useState(-1);
+    const [searchMenuOpen, setSearchMenuOpen] = useState(false);
+
+    const {user, navigate} = useAppContext();
+
+    useEffect(() => {
+        fetch(CAR_MODELS_URL(),
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': user.token
+                },
+            }).then(response => response.json())
+            .then(data => {
+                setCars(data)
+            }).catch(error => console.log(error))
+    }, [])
+
 
 
     const formik = useFormik({
@@ -29,6 +35,7 @@ export const RegisterCarForm = () => {
             matricula: '',
             inpectionDate: '',
             insuranceDate: '',
+            submition:'',
         },
         validationSchema: Yup.object({
             model: Yup.string().required('Required'),
@@ -36,31 +43,56 @@ export const RegisterCarForm = () => {
             inpectionDate: Yup.date().required('Required'),
             insuranceDate: Yup.date().required('Required'),
         }),
-        onSubmit: values => {
+        onSubmit: (values, {setErrors}) => {
             //check if model value is valid
             let carsModel = values.model.split(' ')
+            let inspectionDateTimestamp = new Date(values.inpectionDate).getTime()
+            let insuranceDateTimestamp = new Date(values.insuranceDate).getTime()
+            if (carsModel.length === 3 && cars.filter(car => car.brand === carsModel[0] && car.model === carsModel[1] && car.year === carsModel[2]).length !== 0) {
+                fetch(ADD_CAR_URL(),
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'Authorization': user.token
+                        },
+                        body: JSON.stringify({
+                            "carModel": {
+                                "model": carsModel[1],
+                            },
+                            "matricula": values.matricula,
+                            "inspectionDate": inspectionDateTimestamp,
+                            "insuranceDate": insuranceDateTimestamp,
+                            "group": {
+                                "id": user.groupId
+                            },
+                            "userId": user.idUser
+                        })
+                    }).then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            setErrors({submition: data.message})
+                        }else {
+                            navigate('/dashboard')
+                        }
 
-            if (carsModel.length === 3 && cars.filter(car => car.name === carsModel[0] && car.model === carsModel[1] && car.year === parseInt(carsModel[2])).length !== 0) {
-                alert(JSON.stringify(values, null, 2));
+                    }).catch(error => console.log(error))
             } else {
                 alert('Invalid model')
             }
         }
     })
 
-
-
-    const [selectedCar, setSelectedCar] = useState(-1);
-    const [searchMenuOpen, setSearchMenuOpen] = useState(false);
-
     const handleSelectCar = (carId : number) => {
         setSelectedCar(carId);
         setSearchMenuOpen(false);
-        formik.setFieldValue('model', carId);
-        if (selectedCar != -1)
-            formik.setFieldValue('model', cars[selectedCar].name + ' ' + cars[selectedCar].model + ' ' + cars[selectedCar].year);
-         else
+        formik.setFieldValue('model', cars[carId]);
+        if (selectedCar != -1) {
+            formik.setFieldValue('model', cars[selectedCar].brand + ' ' + cars[selectedCar].model + ' ' + cars[selectedCar].year);
+        } else {
             formik.setFieldValue('model', '');
+        }
     }
 
     return (
@@ -89,16 +121,17 @@ export const RegisterCarForm = () => {
                     />
                     {searchMenuOpen &&
                     <ul tabIndex={0} className="w-full dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                        {cars.filter(car =>
-                                        car.model.toLocaleLowerCase().includes(formik.values.model.toLowerCase().trim())
-                                        || car.name.toLocaleLowerCase().includes(formik.values.model.toLowerCase().trim())
-                        ).slice(7).map((car) => (
-                            <li key={car.id}>
-                                <a className="dropdown-item" onClick={()=> handleSelectCar(car.id)}>
-                                    {car.name} {car.model} {car.year}
-                                </a>
-                            </li>
-                        ))}
+                        {cars
+                            .filter(car => car.model.toLocaleLowerCase().includes(formik.values.model.toLowerCase().trim()) || car.brand.toLocaleLowerCase().includes(formik.values.model.toLowerCase().trim()))
+                            .map((car:{brand:string,model:string, year:number}, index:number) => (
+                                <li key={index}>
+                                    <a className="dropdown-item" onClick={()=> handleSelectCar(index)}>
+                                        {car.brand} {car.model} {car.year}
+                                    </a>
+                                </li>
+                            ))
+                        }
+
                     </ul>
                     }
                 </div>
@@ -121,6 +154,8 @@ export const RegisterCarForm = () => {
                        className="input input-bordered" {...formik.getFieldProps('insuranceDate')}/>
 
                 <button type="submit" className="btn btn-primary mt-6">Submit</button>
+                {formik.errors.submition &&
+                    <div className={"text-error mt-2"}>{formik.errors.submition}</div>}
 
             </div>
         </form>
