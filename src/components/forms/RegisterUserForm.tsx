@@ -9,6 +9,27 @@ export const RegisterUserForm = () => {
     const [tab, setTab] = useState(false)
     const {navigate} = useAppContext();
 
+    const handleRegistration = async (values: object, tab: boolean) => {
+        try {
+            const response = await fetch(REGISTER_URL(), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(values, null, 2),
+            });
+            const data = await response.json();
+
+            if (tab) {
+                navigate('/login?registered=false');
+            } else {
+                navigate('/login?registered=true');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
     const formik = useFormik({
         initialValues: {
             email: '', password: '', passwordConfirmation: '', name: '', groupName: '', groupId: '',role: 'USER'
@@ -19,23 +40,7 @@ export const RegisterUserForm = () => {
             name: Yup.string().required('Required').min(5, 'Name must be at least 5 characters').max(30, 'Name must be at most 30 characters')
         }),
 
-        onSubmit: values => {
-            fetch(REGISTER_URL(), {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(values, null, 2)
-            }).then(response => response.json())
-                .then(data => {
-
-                    navigate("/login")
-                } )
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-        },
-
+        onSubmit: values => handleRegistration(values, tab)
     })
 
     const handleCheckboxChange = () => {
