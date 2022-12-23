@@ -1,19 +1,20 @@
-import {MovingOutlined, LocalGasStationOutlined, PlaceOutlined, Speed} from "@mui/icons-material";
+import {MovingOutlined, LocalGasStationOutlined, Speed, AccessTimeOutlined} from "@mui/icons-material";
 import {Link} from "react-router-dom";
+import React from "react";
 
-export const Statistics = () => {
+export const Statistics:React.FC<{speed:number,distance:number,time:number}> = ({speed, distance, time}) => {
 
 
     const cards = [{
-        id: 1, title: "Average Speed", icon: Speed, value: "0", unit: "km/h"
+        id: 1, title: "Average Speed", icon: Speed, value: speed, unit: "km/h"
     }, {
-        id: 2, title: "Total Distance", icon: MovingOutlined, value: "0", unit: "Km"
+        id: 2, title: "Total Distance", icon: MovingOutlined, value: distance, unit: "Km"
     }, {
         id: 3, title: "Fuel Spent", icon: LocalGasStationOutlined, value: "123", unit: "L"
     },
 
         {
-            id: 4, title: "Current Location", icon: PlaceOutlined, value: "Casa", unit: ""
+            id: 4, title: "Total Time", icon: AccessTimeOutlined, value: time, unit: ""
         },
 
     ]
