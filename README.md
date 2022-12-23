@@ -21,18 +21,3 @@ Dentro do diretório do projeto, correr o seguinte:
 1. `npm run dev`
 2. A aplicação deve estar a correr em [http://localhost:5173](http://localhost:5173)
 
-
-# Docker
-
-Foi preparado um ficheiro _Dockerfile_, de acordo com as referências, com a informação necessária para o _deploy_ desta aplicação _React_.
-
-
-## Utilização da API do _Spting_
-
-Quando o utilizador é autenticado, o seu token de autenticação é armazenado em armazenamento local com a chave `token`.
-
-Para usar a API _Spring_, cada solicitação deve enviar o token de autenticação no cabeçalho, excepto no _login_ e no _Sign In_. 
-
-
-COLOCAR EXEMPLOS
-
