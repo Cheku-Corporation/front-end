@@ -1,6 +1,4 @@
 import {Base} from "@/components/Base";
-import {Speed} from "@mui/icons-material";
-import {Statistics} from "@/components/Statistics";
 import {MapContainer, TileLayer} from "react-leaflet";
 import {LeftletRoutingMachine} from "@/components/LeftletRoutingMachine";
 import {Breadcrumb} from "@/components/Breadcrumb";
@@ -9,62 +7,6 @@ import {LiveStatistics} from "@/components/LiveStatistics";
 
 export const Live = () => {
 
-    const data = [
-        [
-            {
-                name: "Current Speed",
-                value: "123",
-                unit: "Km/h",
-                icon: Speed,
-                iconColor: "primary",
-
-            },
-            {
-                name: "Average Speed",
-                value: "123",
-                unit: "Km/h",
-                icon: Speed,
-                iconColor: "secondary"
-            },
-        ],
-
-        [
-            {
-                name: "Relative Distance",
-                value: "123",
-                unit: "Km",
-                icon: Speed,
-                iconColor: "primary"
-
-            },
-            {
-                name: "Total Distance",
-                value: "123",
-                unit: "Km",
-                icon: Speed,
-                iconColor: "secondary"
-
-            }
-        ],
-
-        [
-            {
-                name: "Current Fuel Waste",
-                value: "123",
-                unit: "L/100Km",
-                icon: Speed,
-                iconColor: "primary"
-
-            },
-            {
-                name: "Average Fuel Waste",
-                value: "123",
-                unit: "L/100Km",
-                icon: Speed,
-                iconColor: "secondary"
-            }
-        ]
-    ]
 
     const [option, setOption] = useState(0)
     return (
@@ -87,7 +29,7 @@ export const Live = () => {
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             />
-                            <LeftletRoutingMachine/>
+                            {/*TODO: <LeftletRoutingMachine coordinates={dashboardData.coordinates}/>*/}
                         </MapContainer>
                     </div>
                 </div>
@@ -95,20 +37,20 @@ export const Live = () => {
                 <div className="card shadow-xl lg:col-span-4 xl:col-span-2 bg-base-100">
                     <div className="card-body">
                         <div className={"card-title text-primary text-3xl"}>Tire Status</div>
-                        <div className={"grid gap-3 grid-cols-2"}>
-                            <div className="radial-progress"
-                                 style={{"--value": "70", "--size": "12rem", "--thickness": "1em"}}>70%
-                            </div>
-                            <div className="radial-progress"
-                                 style={{"--value": "70", "--size": "12rem", "--thickness": "1em"}}>70%
-                            </div>
-                            <div className="radial-progress"
-                                 style={{"--value": "70", "--size": "12rem", "--thickness": "1em"}}>70%
-                            </div>
-                            <div className="radial-progress"
-                                 style={{"--value": "70", "--size": "12rem", "--thickness": "1em"}}>70%
-                            </div>
-                        </div>
+                        {/*<div className={"grid gap-3 grid-cols-2"}>*/}
+                        {/*    <div className="radial-progress"*/}
+                        {/*         style={{"--value": "70", "--size": "12rem", "--thickness": "1em"}}>70%*/}
+                        {/*    </div>*/}
+                        {/*    <div className="radial-progress"*/}
+                        {/*         style={{"--value": "70", "--size": "12rem", "--thickness": "1em"}}>70%*/}
+                        {/*    </div>*/}
+                        {/*    <div className="radial-progress"*/}
+                        {/*         style={{"--value": "70", "--size": "12rem", "--thickness": "1em"}}>70%*/}
+                        {/*    </div>*/}
+                        {/*    <div className="radial-progress"*/}
+                        {/*         style={{"--value": "70", "--size": "12rem", "--thickness": "1em"}}>70%*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
 
