@@ -1,21 +1,6 @@
-import React, {ContextType, createContext, useState} from "react";
+import React, {createContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
-export type User = {
-    idUser: number;
-    name: string;
-    email: string;
-    token: string;
-    groupId: number;
-    groupName: string;
-}
-
-type AppContextType = {
-    user: User;
-    logout: () => void;
-    navigate: (path: string) => void;
-    checkUser: () => boolean;
-    setUser: (user: { idUser: number; groupName: string; groupId: number; name: string; email: string; token: string }) => void;
-}
+import {AppContextType, User} from "@/Types";
 
 
 const AppContext = createContext<AppContextType>({} as AppContextType);

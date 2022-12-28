@@ -2,9 +2,10 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import InfoIcon from '@mui/icons-material/Info';
 import 'car-makes-icons/dist/style.css';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Circle} from "@mui/icons-material";
 import {Link} from "react-router-dom";
+import {USER_CARS_URL} from "@/URLS";
 
 export const Breadcrumb = (props: { page: number }) => {
     const userCars = [{
@@ -25,6 +26,32 @@ export const Breadcrumb = (props: { page: number }) => {
 
     const [currentCar, setCurrentCar] = useState(userCars[0])
     const [currentOption, setCurrentOption] = useState(options[props.page])
+
+
+    const fetchCars = async () => {
+        try {
+            const carsResponse = await fetch(USER_CARS_URL("2","1"), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    // 'Authorization': 'Bearer ' + user.token
+                    'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiIsImV4cCI6MTY3Mjg2MTM1OH0.4SYrzbniJwrXAkbVoxXsPfs15-fqgU9y1YnZWNqUdPEcHeAKwpv3yxQicRNsOw6jloHAGwd6ltch9-0poNlqxw"
+                },
+            });
+            return await carsResponse.json();
+        } catch (error: any) {
+            return {error: error.message};
+        }
+    }
+
+
+    useEffect(() => {
+        fetchCars().then(
+            data => //setCurrentCar(data[0])
+            console.log(data)
+        )
+    }, [])
 
     return (
         <div className="flex items-center">
