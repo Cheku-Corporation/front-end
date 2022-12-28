@@ -2,7 +2,7 @@ import {useMap} from "react-leaflet";
 import React, {useEffect} from "react";
 import L from "leaflet";
 
-type Props = {
+type coordinatesProps = {
     tripNumber: number,
     start: {
         latitude: number,
@@ -15,7 +15,7 @@ type Props = {
 }
 
 
-export const LeftletRoutingMachine: React.FC<{coordinates:Props[]}> = ({coordinates}) => {
+export const LeftletRoutingMachine: React.FC<{coordinates:coordinatesProps[]}> = ({coordinates}) => {
     const map = useMap();
     useEffect(() => {
             L.Routing.control({

@@ -5,17 +5,14 @@ const HOST ="http://localhost:8080"
 
 export const REGISTER_URL = ( ) =>  `${HOST}/api/register`
 export const LOGIN_URL = ( ) =>  `${HOST}/login`
-
 export const USER_DATA_URL = (email:string) =>  `${HOST}/api/user/${email}`
-
-export const CAR_MODELS_URL = ( ) =>  `${HOST}/api/car/carModels`
-
-
+export const CAR_MODELS_URL = ( ) =>  `${HOST}/carModels`
 export const ADD_CAR_URL = ( ) =>  `${HOST}/api/car`
-
-/**
- * URL to fetch all the velocities of a given car
- * @param car
- * @param size
- */
 export const VELOCITIES_URL = (car:string,size:number) => `${HOST}/api/car/${car}/velocities/${size}`
+export const LAST_TRIP_URL = (car:string) => `${HOST}/api/lasttrip?carid=${car}`
+export const LAST_WEEK_URL = (car:string) => `${HOST}/api/lastweek?carid=${car}`
+export const LAST_MONTH_URL = (car:string) => `${HOST}/api/lastmonth?carid=${car}`
+export const LIVE_URL = (car:string) => `${HOST}/api/live?carid=${car}`
+export const CAR_URL = (carId:string, userId:string, groupId:string) => `${HOST}/api/user/${userId}/group/${groupId}/car/${carId}`
+export const USER_CARS_URL = (userId:string, groupId:string) => `${HOST}/api/user/${userId}/group/${groupId}/cars`
+
