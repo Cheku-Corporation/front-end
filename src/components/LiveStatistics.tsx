@@ -1,22 +1,29 @@
-import {LocalGasStationOutlined, MovingOutlined, SettingsOutlined, Speed} from "@mui/icons-material";
+import {
+    LocalGasStationOutlined,
+    SettingsOutlined,
+    Speed,
+    TireRepairOutlined
+} from "@mui/icons-material";
+import React from "react";
+import {LiveStatisticsProps} from "@/Types";
 
-export const LiveStatistics = () => {
+export const LiveStatistics:React.FC<LiveStatisticsProps> = (props) => {
 
 
     const cards = [{
-        id: 1, titles: ["Average Speed", "Current Speed"], icon: Speed, value: "0", unit: "km/h"
+        id: 1, titles: ["Average Speed", "Current Speed"], icon: Speed, value: [props.averageSpeed,props.currentSpeed], unit: "km/h"
     }, {
-        id: 2, titles: ["Current Gear", "Current RPM"], icon: SettingsOutlined, value: "0", unit: ""
+        id: 2, titles: ["Current Gear", "Current RPM"], icon: SettingsOutlined, value: [props.currentGear,props.currentRPM], unit: ""
     }, {
-        id: 3, titles: ["Total Distance", "Relative Distance"], icon: MovingOutlined, value: "123", unit: "Km"
+        id: 3, titles: ["Total Distance", "Relative Distance"], icon: TireRepairOutlined, value: [props.totalDistance,props.relativeDistance], unit: "Km"
     },
 
         {
             id: 4,
-            titles: ["Average Fuel Comsuption", "Total Fuel Comsuption"],
+            titles: ["Tire Pressure", "Tire Temperature"],
             icon: LocalGasStationOutlined,
-            value: "Casa",
-            unit: ""
+            value: [props.tiresPressure,props.tiresTemperature],
+            unit: "psi"
         },
 
     ]
@@ -33,12 +40,12 @@ export const LiveStatistics = () => {
                             <input type="checkbox"/>
                             <div className="stat swap-on ">
                                 <div className="stat-title">{card.titles[0]}</div>
-                                <div className="stat-value">{card.value} {card.unit !== "" ? card.unit : ""}</div>
+                                <div className="stat-value">{card.value[0]} {card.unit !== "" ? card.unit : ""}</div>
                             </div>
 
                             <div className="stat swap-off ">
                                 <div className="stat-title">{card.titles[1]}</div>
-                                <div className="stat-value">{card.value} {card.unit !== "" ? card.unit : ""}</div>
+                                <div className="stat-value">{card.value[1]} {card.unit !== "" ? card.unit : ""}</div>
                             </div>
                         </label>
                     </div>
