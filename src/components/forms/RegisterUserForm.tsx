@@ -9,7 +9,7 @@ export const RegisterUserForm = () => {
     const [tab, setTab] = useState(false)
     const {navigate} = useAppContext();
 
-    const handleRegistration = async (values: object, tab: boolean) => {
+    const handleRegistration = async (values: object) => {
         try {
             const response = await fetch(REGISTER_URL(), {
                 method: 'POST',
@@ -19,12 +19,7 @@ export const RegisterUserForm = () => {
                 body: JSON.stringify(values, null, 2),
             });
             const data = await response.json();
-
-            if (tab) {
-                navigate('/login?registered=false');
-            } else {
-                navigate('/login?registered=true');
-            }
+            navigate('/login');
         } catch (error) {
             console.error('Error:', error);
         }
@@ -40,7 +35,9 @@ export const RegisterUserForm = () => {
             name: Yup.string().required('Required').min(5, 'Name must be at least 5 characters').max(30, 'Name must be at most 30 characters')
         }),
 
-        onSubmit: values => handleRegistration(values, tab)
+        onSubmit: values => {
+            handleRegistration(values)
+        }
     })
 
     const handleCheckboxChange = () => {

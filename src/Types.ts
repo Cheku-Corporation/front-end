@@ -8,10 +8,16 @@ export type User = {
 }
 export type AppContextType = {
     user: User;
+    setUser: (user: User) => void;
     logout: () => void;
     navigate: (path: string) => void;
     checkUser: () => boolean;
-    setUser: (user: User) => void;
+
+    currentCar : string;
+    setCurrentCar: (car: string) => void;
+    carList : SimplifiedCar[];
+    setCarList : (carList : SimplifiedCar[]) => void;
+
 }
 
 
@@ -123,8 +129,8 @@ export type LiveStatisticsProps = {
     tiresTemperature: number,
 }
 
-export type BreadcrumbCar = {
+export type SimplifiedCar = {
     id: number,
-    name: string,
-    icon: string,
+    brand: string,
+    model: string,
 }

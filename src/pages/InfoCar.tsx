@@ -3,52 +3,22 @@ import {Breadcrumb} from "@/components/Breadcrumb";
 import {Car} from "@/Types";
 import {CAR_URL} from "@/URLS";
 import {useEffect, useState} from "react";
+import {useAppContext} from "@/providers/AppProvider";
 
 
 export const InfoCar = () => {
 
-    // const data: Car = {
-    //     id: 1,
-    //     matricula: "AB-CC-23",
-    //     dateofinspection: "01-01-2021",
-    //     dateofinsurance: "31-12-2021",
-    //     group: {
-    //         id: 1,
-    //         name: "Group 1",
-    //         isAdmin: 1
-    //     },
-    //     model: {
-    //         brand: "Audi",
-    //         model: "A3",
-    //         year: 2019,
-    //         tankCapacity: 50,
-    //         type: CarFuelType.GASOLINE,
-    //         motor: {
-    //             id: 1,
-    //             power: 100,
-    //             cubicCapacity: 2000,
-    //             model: "A3",
-    //         },
-    //         tires: {
-    //             id: 1,
-    //             brand: "Michelin",
-    //             model: "Pilot Sport 4",
-    //         }
-    //     },
-    // }
-
     const [data, setData] = useState({} as Car)
+    const {user,currentCar} = useAppContext();
 
-
-    const fetchCarData = async (id: string) => {
+    const fetchCarData = async () => {
         try {
-            const carResponse = await fetch(CAR_URL("1", "2", "1"), {
+            const carResponse = await fetch(CAR_URL(currentCar, user.idUser, user.groupId), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    // 'Authorization': 'Bearer ' + user.token
-                    'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiIsImV4cCI6MTY3Mjg2MTM1OH0.4SYrzbniJwrXAkbVoxXsPfs15-fqgU9y1YnZWNqUdPEcHeAKwpv3yxQicRNsOw6jloHAGwd6ltch9-0poNlqxw"
+                    'Authorization': 'Bearer ' + user.token
                 },
             });
             return await carResponse.json();
@@ -59,13 +29,13 @@ export const InfoCar = () => {
 
 
     const deleteCar = async () => {
-        const response = await fetch(CAR_URL("1", "2", "1"), {
+
+        const response = await fetch(CAR_URL(currentCar, user.idUser, user.groupId), {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                // 'Authorization': 'Bearer ' + user.token
-                'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiIsImV4cCI6MTY3Mjg2MTM1OH0.4SYrzbniJwrXAkbVoxXsPfs15-fqgU9y1YnZWNqUdPEcHeAKwpv3yxQicRNsOw6jloHAGwd6ltch9-0poNlqxw"
+                'Authorization': 'Bearer ' + user.token
             }
         });
         const data = await response.json();
@@ -74,7 +44,7 @@ export const InfoCar = () => {
     }
 
     useEffect(() => {
-        fetchCarData("1").then(
+        fetchCarData().then(
             (data) => {
 
 
@@ -110,7 +80,7 @@ export const InfoCar = () => {
                 });
             }
         )
-    }, [])
+    }, [currentCar])
 
 
     return (

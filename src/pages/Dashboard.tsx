@@ -12,9 +12,8 @@ import {DashboardProps} from "@/Types";
 
 
 export const Dashboard = () => {
-    const {user} = useAppContext();
     const [dashboardData, setDashboardData] = useState<DashboardProps | null>({} as DashboardProps);
-
+    const {user, currentCar} = useAppContext();
     const options = [
         {
             id: 0,
@@ -35,13 +34,12 @@ export const Dashboard = () => {
 
     const fetchDashData = async (func: (id: string) => string) => {
         try {
-            const dashResponse = await fetch(func("1"), {
+            const dashResponse = await fetch(func(currentCar), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    // 'Authorization': 'Bearer ' + user.token
-                    'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiIsImV4cCI6MTY3Mjg2MTM1OH0.4SYrzbniJwrXAkbVoxXsPfs15-fqgU9y1YnZWNqUdPEcHeAKwpv3yxQicRNsOw6jloHAGwd6ltch9-0poNlqxw"
+                    'Authorization': 'Bearer ' + user.token
                 },
             });
             return await dashResponse.json();
@@ -61,7 +59,7 @@ export const Dashboard = () => {
             data => data.message === "Not enougth data to show" ? setDashboardData(null) : setDashboardData(data)
         )
 
-    }, [])
+    }, [currentCar])
 
     return (
         <Base>
