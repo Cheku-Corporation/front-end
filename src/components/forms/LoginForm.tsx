@@ -4,16 +4,14 @@ import {useFormik} from 'formik';
 import {useAppContext} from '@/providers/AppProvider';
 
 import * as Yup from 'yup';
-import {LOGIN_URL, USER_DATA_URL} from "@/URLS";
-import {useSearchParams} from "react-router-dom";
+import {LOGIN_URL, USER_CARS_URL, USER_DATA_URL} from "@/URLS";
+import {SimplifiedCar} from "@/Types";
 
 
 export const LoginForm = () => {
 
-        const {navigate, user, setUser} = useAppContext();
-        const [queryParameters] = useSearchParams()
-        let token = ""
-        const fetchLogin = async (values: { email: string, password: string }) => {
+    const {navigate, user, setUser,setCarList,setCurrentCar} = useAppContext();
+    const fetchLogin = async (values: { email: string, password: string }) => {
             try {
                 const loginResponse = await fetch(LOGIN_URL(), {
                     method: 'POST',
@@ -40,14 +38,31 @@ export const LoginForm = () => {
                 });
 
                 const userData = await userResponse.json();
+                const userCars = await fetch(USER_CARS_URL( userData.userId,userData.groupId), {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: token,
+                    },
+                });
 
+                const userCarsData = await userCars.json();
+                console.log(userCarsData)
+                const simplifiedCarsData:[SimplifiedCar] = userCarsData.map((car: any) => {
+                    return {
+                        id: car.id,
+                        brand: car.carModel.brand,
+                        model: car.carModel.model,
+                    };
+                })
                 return {
-                    idUser: userData.idUser,
+                    idUser: userData.userId,
                     name: userData.name,
                     email: userData.email,
                     token,
                     groupId: userData.groupId,
                     groupName: userData.groupName,
+                    cars: simplifiedCarsData
                 };
             } catch (error : any) {
                 return {error: error.message};
@@ -70,7 +85,7 @@ export const LoginForm = () => {
             }),
 
 
-            onSubmit: (values, {setSubmitting, setStatus, setErrors}) => {
+            onSubmit: (values, {setErrors}) => {
 
                 fetchLogin(values).then((data: any) => {
                         if (data.hasOwnProperty('error')) {
@@ -78,11 +93,14 @@ export const LoginForm = () => {
                         } else {
 
                             setUser(data)
-                            console.log(data)
-                            if (queryParameters.get('registered') !== null && queryParameters.get('registered') === 'true') {
-                                navigate("/signCar")
-                            } else {
+                            setCarList(data.cars)
+
+                            if (data.cars.length > 0) {
+
+                                setCurrentCar(data.cars[0].id)
                                 navigate("/dashboard")
+                            } else {
+                                navigate('/signCar')
                             }
                         }
                     }

@@ -12,7 +12,7 @@ export const VELOCITIES_URL = (car:string,size:number) => `${HOST}/api/car/${car
 export const LAST_TRIP_URL = (car:string) => `${HOST}/api/lasttrip?carid=${car}`
 export const LAST_WEEK_URL = (car:string) => `${HOST}/api/lastweek?carid=${car}`
 export const LAST_MONTH_URL = (car:string) => `${HOST}/api/lastmonth?carid=${car}`
-export const LIVE_URL = (car:string) => `${HOST}/api/live?carid=${car}`
-export const CAR_URL = (carId:string, userId:string, groupId:string) => `${HOST}/api/user/${userId}/group/${groupId}/car/${carId}`
+export const LIVE_URL = (car: number | string) => `${HOST}/api/live?carid=${car}`
+export const CAR_URL = (carId:string, userId:string|number, groupId:string|number) => `${HOST}/api/user/${userId}/group/${groupId}/car/${carId}`
 export const USER_CARS_URL = (userId:string, groupId:string) => `${HOST}/api/user/${userId}/group/${groupId}/cars`
 

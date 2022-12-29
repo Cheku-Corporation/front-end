@@ -1,6 +1,6 @@
 import React, {createContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {AppContextType, User} from "@/Types";
+import {AppContextType, SimplifiedCar, User} from "@/Types";
 
 
 const AppContext = createContext<AppContextType>({} as AppContextType);
@@ -16,7 +16,8 @@ export const AppProvider = ({children}: {children: React.ReactNode}) => {
     }
 
     const [user, setUser] = useState<User>(initialUser);
-
+    const [currentCar, setCurrentCar] = useState<string>("");
+    const [carList, setCarList] = useState<SimplifiedCar[]>([]);
 
     const navigate = useNavigate();
     const logout = () => {
@@ -28,7 +29,7 @@ export const AppProvider = ({children}: {children: React.ReactNode}) => {
     }
 
     return (
-        <AppContext.Provider value={{user,setUser, logout,navigate,checkUser}}>
+        <AppContext.Provider value={{user,setUser, logout,navigate,checkUser, currentCar,setCurrentCar, carList,setCarList}}>
             {children}
         </AppContext.Provider>
     )

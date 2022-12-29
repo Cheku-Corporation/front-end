@@ -12,22 +12,24 @@ import {
     Water
 } from "@mui/icons-material";
 import {LeafletLiveMarker} from "@/components/LeafletLiveMarker";
+import {useParams} from "react-router-dom";
+import {useAppContext} from "@/providers/AppProvider";
 
 
 export const Live = () => {
 
     const [liveData, setLiveData] = useState<LiveProps>({} as LiveProps);
-
+    const {user, currentCar} = useAppContext();
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(LIVE_URL("1"),
+            const response = await fetch(LIVE_URL(currentCar),
                 {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                        // 'Authorization': 'Bearer ' + user.token
-                        'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiIsImV4cCI6MTY3Mjg2MTM1OH0.4SYrzbniJwrXAkbVoxXsPfs15-fqgU9y1YnZWNqUdPEcHeAKwpv3yxQicRNsOw6jloHAGwd6ltch9-0poNlqxw"
+                        'Authorization': 'Bearer ' + user.token
+                        // 'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiIsImV4cCI6MTY3Mjg2MTM1OH0.4SYrzbniJwrXAkbVoxXsPfs15-fqgU9y1YnZWNqUdPEcHeAKwpv3yxQicRNsOw6jloHAGwd6ltch9-0poNlqxw"
                     },
                 })
             const data = await response.json()
@@ -38,7 +40,7 @@ export const Live = () => {
         const interval = setInterval(fetchData, 1000)
 
         return () => clearInterval(interval)
-    }, [])
+    }, [currentCar])
 
 
 
