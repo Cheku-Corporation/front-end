@@ -1,9 +1,26 @@
 import {MovingOutlined, LocalGasStationOutlined, Speed, AccessTimeOutlined} from "@mui/icons-material";
-import {Link} from "react-router-dom";
 import React from "react";
 import {StatisticsProps} from "@/Types";
+import humanizeDuration from "humanize-duration";
 
 export const Statistics:React.FC<StatisticsProps> = (props:StatisticsProps) => {
+
+    const shortEnglishHumanizer = humanizeDuration.humanizer({
+        language: "shortEn",
+        languages: {
+            shortEn: {
+                y: () => "y",
+                mo: () => "mo",
+                w: () => "w",
+                d: () => "d",
+                h: () => "h",
+                m: () => "m",
+                s: () => "s",
+                ms: () => "ms",
+            },
+        },
+        delimiter: " ",
+    });
 
 
     const cards = [{
@@ -15,7 +32,7 @@ export const Statistics:React.FC<StatisticsProps> = (props:StatisticsProps) => {
     },
 
         {
-            id: 4, title: "Total Time", icon: AccessTimeOutlined, value: props.totalTime, relativeValue: props.totalTimeComparedToPrevious, unit: ""
+            id: 4, title: "Total Time", icon: AccessTimeOutlined, value: shortEnglishHumanizer(props.totalTime), relativeValue: props.totalTimeComparedToPrevious, unit: ""
         },
 
     ]
@@ -26,7 +43,6 @@ export const Statistics:React.FC<StatisticsProps> = (props:StatisticsProps) => {
 
                 return (
                     <div key={index} className="stats stats-vertical lg:stats-horizontal shadow">
-                        <Link to={"/car/speed"} key={index}>
                             <div className="stat">
                                 <div className="stat-figure text-secondary">
                                     <card.icon className={"text-primary"} sx={{fontSize: '6.5em'}}/>
@@ -37,7 +53,6 @@ export const Statistics:React.FC<StatisticsProps> = (props:StatisticsProps) => {
                                     <div className="stat-desc">{Math.abs(card.relativeValue)} {card.relativeValue > 0 ?  "more" : "less"} than last</div>
                                 }
                             </div>
-                        </Link>
                     </div>
                 )
             })}

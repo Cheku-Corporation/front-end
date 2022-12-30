@@ -16,3 +16,6 @@ export const LIVE_URL = (car: number | string) => `${HOST}/api/live?carid=${car}
 export const CAR_URL = (carId:string, userId:string|number, groupId:string|number) => `${HOST}/api/user/${userId}/group/${groupId}/car/${carId}`
 export const USER_CARS_URL = (userId:string, groupId:string) => `${HOST}/api/user/${userId}/group/${groupId}/cars`
 
+export const NOTIFICATIONS_URL = (groupId:string|number) => `${HOST}/api/group/${groupId}/notifications`
+export const DELETE_NOTIFICATIONS_URL = (groupId:string|number,notificationId:string|number) => `${HOST}/api/group/${groupId}/notification/${notificationId}`
+

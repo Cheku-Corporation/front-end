@@ -61,7 +61,6 @@ export const RegisterCarForm = () => {
 
     useEffect(() => {
         fetchCarModels().then((data)=> {
-            console.log(data)
             setCars(data)
         })
 

@@ -17,6 +17,8 @@ export type AppContextType = {
     setCurrentCar: (car: string) => void;
     carList : SimplifiedCar[];
     setCarList : (carList : SimplifiedCar[]) => void;
+    notificationList : Notification[];
+    setNotificationList : (notificationList : Notification[]) => void;
 
 }
 
@@ -115,7 +117,12 @@ export type LiveProps = {
     currentWaterPercentage: number,
     currentOilPercentage: number,
     currentFuelPercentage: number,
-    lightdsState: LighState
+    lightdsState: LighState,
+    localization: {
+        latitude: number,
+        longitude: number
+    }
+    onTheRoad: boolean,
 }
 
 export type LiveStatisticsProps = {
@@ -133,4 +140,29 @@ export type SimplifiedCar = {
     id: number,
     brand: string,
     model: string,
+}
+
+export type Notification = {
+    subject: string,
+    message: string,
+    priority: number,
+    id: number
+}
+
+export type RegistrationProps = {
+    email: string
+    password: string
+    passwordConfirmation: string
+    name: string
+    groupName: string
+    groupId: string
+    role: string,
+    validate: boolean
+}
+
+export  enum NotificationPriority {
+    error,
+    warning,
+    accent,
+
 }

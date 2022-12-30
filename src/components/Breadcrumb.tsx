@@ -24,7 +24,7 @@ export const Breadcrumb = (props: { page: number }) => {
     let thisCar = carList.find((car) => car.id === Number(currentCar)) || carList[0];
 
     return (
-        <div className="flex items-center">
+        <div className="flex items-center flex-1">
             <div className="dropdown">
                 <label tabIndex={0}
                        className="btn btn-ghost m-1 text-xl text-primary">
@@ -33,7 +33,7 @@ export const Breadcrumb = (props: { page: number }) => {
                 </label>
                 <ul tabIndex={0}
                     className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                    {carList.map((car, index) => (
+                    {carList.map((car) => (
                         <li key={car.id}>
                             <Link
                                 to={`/${currentOption.name.toLowerCase()}`}
