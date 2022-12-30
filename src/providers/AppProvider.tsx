@@ -12,16 +12,18 @@ export const AppProvider = ({children}: {children: React.ReactNode}) => {
         email: '',
         token: '',
         groupId: -1,
-        groupName: ''
+        groupName: '',
     }
 
     const [user, setUser] = useState<User>(initialUser);
     const [currentCar, setCurrentCar] = useState<string>("");
     const [carList, setCarList] = useState<SimplifiedCar[]>([]);
-
     const navigate = useNavigate();
     const logout = () => {
         setUser(initialUser);
+        setCarList([]);
+        setCurrentCar("");
+        navigate('/login');
     }
 
     const checkUser = () => {

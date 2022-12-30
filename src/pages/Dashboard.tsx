@@ -6,7 +6,7 @@ import {BarChartCmp} from "@/components/charts/BarChartCmp";
 import {MapContainer, TileLayer} from "react-leaflet";
 import {LeftletRoutingMachine} from "@/components/LeftletRoutingMachine";
 import {useAppContext} from "@/providers/AppProvider";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {LAST_MONTH_URL, LAST_TRIP_URL, LAST_WEEK_URL} from "@/URLS";
 import {DashboardProps} from "@/Types";
 
@@ -61,12 +61,33 @@ export const Dashboard = () => {
 
     }, [currentCar])
 
+    useEffect(() => {
+        return () => {
+            resetSelect();
+        }
+    }, [])
+
+
+    const selectRef = useRef<HTMLSelectElement>(null);
+    const resetSelect = () => {
+        if (selectRef.current) {
+            selectRef.current.value = "0";
+        }
+    }
+
+
     return (
         <Base>
+
             <div className={"flex flex-row pt-2  justify-between"}>
                 <Breadcrumb page={0}/>
 
-                <select defaultValue={1} className="select select-bordered max-w-xs" onChange={selectChangeHandler}>
+                <select
+                    defaultValue={1}
+                    className="select select-bordered max-w-xs"
+                    onChange={selectChangeHandler}
+                    ref={selectRef}
+                >
                     {options.map((option, index) => {
                         return <option key={index} value={index}>{option.name}</option>
                     })}

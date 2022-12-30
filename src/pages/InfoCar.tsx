@@ -9,7 +9,7 @@ import {useAppContext} from "@/providers/AppProvider";
 export const InfoCar = () => {
 
     const [data, setData] = useState({} as Car)
-    const {user,currentCar} = useAppContext();
+    const {user,currentCar,carList,setCarList,setCurrentCar,navigate} = useAppContext();
 
     const fetchCarData = async () => {
         try {
@@ -41,6 +41,9 @@ export const InfoCar = () => {
         const data = await response.json();
 
         console.log(data);
+        setCarList(carList.filter((car) => car.id !== Number(currentCar)));
+        setCurrentCar(String(carList[0].id));
+        navigate('/dashboard');
     }
 
     useEffect(() => {

@@ -6,7 +6,7 @@ const HOST ="http://localhost:8080"
 export const REGISTER_URL = ( ) =>  `${HOST}/api/register`
 export const LOGIN_URL = ( ) =>  `${HOST}/login`
 export const USER_DATA_URL = (email:string) =>  `${HOST}/api/user/${email}`
-export const CAR_MODELS_URL = ( ) =>  `${HOST}/carModels`
+export const CAR_MODELS_URL = ( ) =>  `${HOST}/api/carModels`
 export const ADD_CAR_URL = ( ) =>  `${HOST}/api/car`
 export const VELOCITIES_URL = (car:string,size:number) => `${HOST}/api/car/${car}/velocities/${size}`
 export const LAST_TRIP_URL = (car:string) => `${HOST}/api/lasttrip?carid=${car}`

@@ -12,7 +12,6 @@ import {
     Water
 } from "@mui/icons-material";
 import {LeafletLiveMarker} from "@/components/LeafletLiveMarker";
-import {useParams} from "react-router-dom";
 import {useAppContext} from "@/providers/AppProvider";
 
 
@@ -53,6 +52,7 @@ export const Live = () => {
                     <div className={"my-auto"}><span className={"font-bold"}>Current User:</span> V1cente</div>
                 </div>
             </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 pb-4">
                 <LiveStatistics
                     averageSpeed={liveData.averageSpeed}

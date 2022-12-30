@@ -1,7 +1,15 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {useAppContext} from "@/providers/AppProvider";
 
 export const Navbar = () => {
+
+    const {logout} = useAppContext();
+
+    //TODO: "api/car/{car_id}/notifications"
+
+
+
     return (
         <div className="navbar bg-base-100 shadow-lg sticky top-0 z-30">
             <div className="flex-1">
@@ -19,7 +27,7 @@ export const Navbar = () => {
                     </button>
                     <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
 
-                        <li><a>Logout</a></li>
+
                     </ul>
                 </div>
 
@@ -35,7 +43,9 @@ export const Navbar = () => {
                                 Add car
                            </Link>
                         </li>
-                        <li><a>Logout</a></li>
+                        <li >
+                            <a onClick={()=> logout()}>Logout</a>
+                        </li>
                     </ul>
                 </div>
             </div>

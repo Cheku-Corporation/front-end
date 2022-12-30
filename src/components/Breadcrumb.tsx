@@ -8,13 +8,6 @@ import {Link} from "react-router-dom";
 import {useAppContext} from "@/providers/AppProvider";
 
 export const Breadcrumb = (props: { page: number }) => {
-    // const userCars = [{
-    //     id: 0, name: "Audi TT", icon: "car-audi"
-    // }, {
-    //     id: 1, name: "BMW M3", icon: "car-bmw"
-    // }, {
-    //     id: 2, name: "Mercedes C63", icon: "car-mercedes"
-    // },]
 
     const {carList, currentCar,setCurrentCar} = useAppContext();
 
@@ -30,9 +23,6 @@ export const Breadcrumb = (props: { page: number }) => {
 
     let thisCar = carList.find((car) => car.id === Number(currentCar)) || carList[0];
 
-
-    console.log("CAR:", thisCar)
-    console.log("CURRENT CAR:", currentCar)
     return (
         <div className="flex items-center">
             <div className="dropdown">
