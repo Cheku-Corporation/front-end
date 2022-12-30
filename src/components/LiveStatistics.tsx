@@ -11,11 +11,11 @@ export const LiveStatistics:React.FC<LiveStatisticsProps> = (props) => {
 
 
     const cards = [{
-        id: 1, titles: ["Average Speed", "Current Speed"], icon: Speed, value: [props.averageSpeed,props.currentSpeed], unit: "km/h"
+        id: 1, titles: ["Average Speed", "Current Speed"], icon: Speed, value: [props.averageSpeed,props.currentSpeed], unit: ["km/h","km/h"]
     }, {
-        id: 2, titles: ["Current Gear", "Current RPM"], icon: SettingsOutlined, value: [props.currentGear,props.currentRPM], unit: ""
+        id: 2, titles: ["Current Gear", "Current RPM"], icon: SettingsOutlined, value: [props.currentGear,props.currentRPM], unit: ["","RPM"]
     }, {
-        id: 3, titles: ["Total Distance", "Relative Distance"], icon: TireRepairOutlined, value: [props.totalDistance,props.relativeDistance], unit: "Km"
+        id: 3, titles: ["Total Distance", "Relative Distance"], icon: TireRepairOutlined, value: [props.totalDistance,props.relativeDistance], unit: ["Km","Km"]
     },
 
         {
@@ -23,7 +23,7 @@ export const LiveStatistics:React.FC<LiveStatisticsProps> = (props) => {
             titles: ["Tire Pressure", "Tire Temperature"],
             icon: LocalGasStationOutlined,
             value: [props.tiresPressure,props.tiresTemperature],
-            unit: "psi"
+            unit: ["psi","°C"]
         },
 
     ]
@@ -40,12 +40,12 @@ export const LiveStatistics:React.FC<LiveStatisticsProps> = (props) => {
                             <input type="checkbox"/>
                             <div className="stat swap-on ">
                                 <div className="stat-title">{card.titles[0]}</div>
-                                <div className="stat-value">{card.value[0]} {card.unit !== "" ? card.unit : ""}</div>
+                                <div className="stat-value">{card.value[0]} {card.unit[0] !== "" ? card.unit[0] : ""}</div>
                             </div>
 
                             <div className="stat swap-off ">
                                 <div className="stat-title">{card.titles[1]}</div>
-                                <div className="stat-value">{card.value[1]} {card.unit !== "" ? card.unit : ""}</div>
+                                <div className="stat-value">{card.value[1]} {card.unit[1] !== "" ? card.unit[1] : ""}</div>
                             </div>
                         </label>
                     </div>

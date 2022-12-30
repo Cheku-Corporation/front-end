@@ -1,25 +1,33 @@
 import {useFormik} from "formik";
 import * as Yup from 'yup';
-import {useState} from "react";
+import React, {useState} from "react";
 import {useAppContext} from "@/providers/AppProvider";
 import {REGISTER_URL} from "@/URLS";
+import {RegistrationProps} from "@/Types";
 
 export const RegisterUserForm = () => {
 
     const [tab, setTab] = useState(false)
     const {navigate} = useAppContext();
 
-    const handleRegistration = async (values: object) => {
+    const handleRegistration = async (values: RegistrationProps) => {
         try {
             const response = await fetch(REGISTER_URL(), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(values, null, 2),
+                body: JSON.stringify({
+                    email: values.email,
+                    password: values.password,
+                    passwordConfirmation: values.passwordConfirmation,
+                    name: values.name,
+                    groupName: values.groupName,
+                    groupId: values.groupId,
+                    role: values.role
+                }, null, 2),
             });
-            const data = await response.json();
-            navigate('/login');
+            return await response.json();
         } catch (error) {
             console.error('Error:', error);
         }
@@ -27,16 +35,22 @@ export const RegisterUserForm = () => {
 
     const formik = useFormik({
         initialValues: {
-            email: '', password: '', passwordConfirmation: '', name: '', groupName: '', groupId: '',role: 'USER'
+            email: '', password: '', passwordConfirmation: '', name: '', groupName: '', groupId: '',role: 'USER',validate: false
         }, validationSchema: Yup.object({
             email: Yup.string().email('Invalid email address').required('Required'),
             password: Yup.string().required('Required'),
             passwordConfirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
-            name: Yup.string().required('Required').min(5, 'Name must be at least 5 characters').max(30, 'Name must be at most 30 characters')
+            name: Yup.string().required('Required').min(5, 'Name must be at least 5 characters').max(30, 'Name must be at most 30 characters'),
         }),
 
-        onSubmit: values => {
-            handleRegistration(values)
+        onSubmit: (values, {setErrors}) => {
+            handleRegistration(values).then((data:RegistrationProps | any) => {
+                if (data.hasOwnProperty('message')) {
+                    setErrors({validate: data.message})
+                } else {
+                    navigate('/login')
+                }
+            })
         }
     })
 
@@ -101,6 +115,9 @@ export const RegisterUserForm = () => {
 
 
             <button type="submit" className="btn btn-primary mt-4">Register</button>
+
+            {formik.errors.validate &&
+                <div className={"text-error mt-2 text-center"}>{formik.errors.validate}</div>}
         </div>
     </form>)
 

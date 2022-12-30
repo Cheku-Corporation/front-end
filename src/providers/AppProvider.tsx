@@ -1,6 +1,6 @@
 import React, {createContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {AppContextType, SimplifiedCar, User} from "@/Types";
+import {AppContextType, SimplifiedCar, User,Notification} from "@/Types";
 
 
 const AppContext = createContext<AppContextType>({} as AppContextType);
@@ -12,16 +12,19 @@ export const AppProvider = ({children}: {children: React.ReactNode}) => {
         email: '',
         token: '',
         groupId: -1,
-        groupName: ''
+        groupName: '',
     }
 
     const [user, setUser] = useState<User>(initialUser);
     const [currentCar, setCurrentCar] = useState<string>("");
     const [carList, setCarList] = useState<SimplifiedCar[]>([]);
-
+    const [notificationList, setNotificationList] = useState<Notification[]>([]);
     const navigate = useNavigate();
     const logout = () => {
         setUser(initialUser);
+        setCarList([]);
+        setCurrentCar("");
+        navigate('/login');
     }
 
     const checkUser = () => {
@@ -29,7 +32,7 @@ export const AppProvider = ({children}: {children: React.ReactNode}) => {
     }
 
     return (
-        <AppContext.Provider value={{user,setUser, logout,navigate,checkUser, currentCar,setCurrentCar, carList,setCarList}}>
+        <AppContext.Provider value={{user,setUser, logout,navigate,checkUser, currentCar,setCurrentCar, carList,setCarList,notificationList, setNotificationList}}>
             {children}
         </AppContext.Provider>
     )

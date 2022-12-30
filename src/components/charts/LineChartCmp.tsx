@@ -5,9 +5,9 @@ import {VELOCITIES_URL} from "@/URLS";
 
 export const LineChartCmp = () => {
     const [lineChartData, setLineChartData] = useState<any[]>([])
-    const {user} = useAppContext();
+    const {user,currentCar} = useAppContext();
     useEffect(() => {
-        fetch(VELOCITIES_URL("1",100),
+        fetch(VELOCITIES_URL(currentCar,100),
             {
                 method: 'GET',
                 headers: {

@@ -10,7 +10,7 @@ import {SimplifiedCar} from "@/Types";
 
 export const LoginForm = () => {
 
-    const {navigate, user, setUser,setCarList,setCurrentCar} = useAppContext();
+    const {navigate, setUser,setCarList,setCurrentCar} = useAppContext();
     const fetchLogin = async (values: { email: string, password: string }) => {
             try {
                 const loginResponse = await fetch(LOGIN_URL(), {
@@ -47,7 +47,6 @@ export const LoginForm = () => {
                 });
 
                 const userCarsData = await userCars.json();
-                console.log(userCarsData)
                 const simplifiedCarsData:[SimplifiedCar] = userCarsData.map((car: any) => {
                     return {
                         id: car.id,
@@ -143,7 +142,7 @@ export const LoginForm = () => {
                 <button type="submit" className={"btn btn-primary w-full mt-6"}>Submit</button>
 
                 {formik.errors.authentification &&
-                    <div className={"text-error mt-2"}>{formik.errors.authentification}</div>}
+                    <div className={"text-error mt-2 text-center"}>{formik.errors.authentification}</div>}
             </form>
 
         );

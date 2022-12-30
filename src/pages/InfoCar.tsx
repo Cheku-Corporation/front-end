@@ -9,8 +9,8 @@ import {useAppContext} from "@/providers/AppProvider";
 export const InfoCar = () => {
 
     const [data, setData] = useState({} as Car)
-    const {user,currentCar} = useAppContext();
-
+    const {user,currentCar,carList,setCarList,setCurrentCar,navigate} = useAppContext();
+    const [error, setError] = useState<boolean>(false);
     const fetchCarData = async () => {
         try {
             const carResponse = await fetch(CAR_URL(currentCar, user.idUser, user.groupId), {
@@ -40,7 +40,20 @@ export const InfoCar = () => {
         });
         const data = await response.json();
 
-        console.log(data);
+        setCarList(carList.filter((car) => car.id !== Number(currentCar)));
+        if (data.hasOwnProperty("message")) {
+            setError(true);
+            setTimeout(() => {
+                setError(false);
+            }, 2000);
+        } else {
+            if (carList.length == 0) {
+               setCurrentCar("-1")
+            } else {
+                setCurrentCar(String(carList[0].id));
+                navigate('/dashboard')
+            }
+        }
     }
 
     useEffect(() => {
@@ -112,11 +125,11 @@ export const InfoCar = () => {
                                     <div className={"text-accent text-xl font-extralight"}>{data.group.groupName}</div>
                                 </div>
 
-                                {data.group.isAdmin === 1 && data.group.groupNameEncripted !== null ? (
+                                {data.group.isAdmin === user.idUser && data.group.groupNameEncripted !== null ? (
                                         <div className={"flex flex-row gap-x-3"}>
                                             <div className={"text-primary font-extrabold text-xl"}>GroupID:</div>
                                             <div
-                                                className={"text-accent text-xl font-extralight"}>{btoa(data.group.groupNameEncripted).replaceAll("=", "")}
+                                                className={"text-accent text-xl font-extralight"}>{data.group.groupNameEncripted}
                                             </div>
                                         </div>
                                     )
@@ -145,6 +158,7 @@ export const InfoCar = () => {
                             </div>
                         </div>
                     </div>
+                    {data.group.isAdmin === user.idUser && (
                     <div className={"card shadow-xl bg-base-100 w-3/12"}>
                         <div className={"card-body"}>
                             <div className={"card-title text-primary text-3xl"}>Danger Zone</div>
@@ -155,6 +169,7 @@ export const InfoCar = () => {
                             </div>
                         </div>
                     </div>
+                    )}
                 </div>
             )}
 
@@ -171,6 +186,17 @@ export const InfoCar = () => {
                     </div>
                 </label>
             </label>
-
+            { error &&
+                <div className="alert alert-error shadow-lg w-1/3 absolute bottom-2 left-2">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                             viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Error! Task failed successfully.</span>
+                    </div>
+                </div>
+            }
         </Base>)
 }

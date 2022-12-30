@@ -6,7 +6,7 @@ const HOST ="http://localhost:8080"
 export const REGISTER_URL = ( ) =>  `${HOST}/api/register`
 export const LOGIN_URL = ( ) =>  `${HOST}/login`
 export const USER_DATA_URL = (email:string) =>  `${HOST}/api/user/${email}`
-export const CAR_MODELS_URL = ( ) =>  `${HOST}/carModels`
+export const CAR_MODELS_URL = ( ) =>  `${HOST}/api/carModels`
 export const ADD_CAR_URL = ( ) =>  `${HOST}/api/car`
 export const VELOCITIES_URL = (car:string,size:number) => `${HOST}/api/car/${car}/velocities/${size}`
 export const LAST_TRIP_URL = (car:string) => `${HOST}/api/lasttrip?carid=${car}`
@@ -15,4 +15,7 @@ export const LAST_MONTH_URL = (car:string) => `${HOST}/api/lastmonth?carid=${car
 export const LIVE_URL = (car: number | string) => `${HOST}/api/live?carid=${car}`
 export const CAR_URL = (carId:string, userId:string|number, groupId:string|number) => `${HOST}/api/user/${userId}/group/${groupId}/car/${carId}`
 export const USER_CARS_URL = (userId:string, groupId:string) => `${HOST}/api/user/${userId}/group/${groupId}/cars`
+
+export const NOTIFICATIONS_URL = (groupId:string|number) => `${HOST}/api/group/${groupId}/notifications`
+export const DELETE_NOTIFICATIONS_URL = (groupId:string|number,notificationId:string|number) => `${HOST}/api/group/${groupId}/notification/${notificationId}`
 
