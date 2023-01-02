@@ -63,6 +63,8 @@ export type StatisticsProps = {
     totalTimeComparedToPrevious: number | null;
     fuelSpentComparedToPrevious: number | null;
     fuelConsumptionPer100kmComparedToPrevious: number | null;
+
+    currentOptionName: string;
 }
 
 export enum CarFuelType {

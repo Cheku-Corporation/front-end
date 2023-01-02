@@ -50,7 +50,7 @@ export const Statistics:React.FC<StatisticsProps> = (props:StatisticsProps) => {
                                 <div className="stat-title">{card.title}</div>
                                 <div className="stat-value">{card.value} {card.unit !== "" ? card.unit : ""}</div>
                                 {card.relativeValue !== null && card.relativeValue !== undefined &&
-                                    <div className="stat-desc">{Math.abs(card.relativeValue)} {card.relativeValue > 0 ?  "more" : "less"} than last</div>
+                                    <div className="stat-desc">{Math.abs(card.relativeValue)}% {card.relativeValue > 0 ?  "more" : "less"} than {props.currentOptionName.toLowerCase()}</div>
                                 }
                             </div>
                     </div>

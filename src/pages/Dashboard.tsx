@@ -9,7 +9,7 @@ import {useAppContext} from "@/providers/AppProvider";
 import {useEffect, useRef, useState} from "react";
 import {LAST_MONTH_URL, LAST_TRIP_URL, LAST_WEEK_URL} from "@/URLS";
 import {DashboardProps} from "@/Types";
-
+import './map.css'
 
 export const Dashboard = () => {
     const [dashboardData, setDashboardData] = useState<DashboardProps | null>({} as DashboardProps);
@@ -62,6 +62,7 @@ export const Dashboard = () => {
     }, [currentCar])
 
     useEffect(() => {
+        resetSelect()
         return () => {
             resetSelect();
         }
@@ -73,6 +74,13 @@ export const Dashboard = () => {
         if (selectRef.current) {
             selectRef.current.value = "0";
         }
+    }
+
+    const getSelectCurrentOptionName = () => {
+        if (selectRef.current) {
+            return options[Number(selectRef.current.value)].name;
+        }
+        return "";
     }
 
 
@@ -109,6 +117,7 @@ export const Dashboard = () => {
                         totalTimeComparedToPrevious={dashboardData.totalTimeComparedToPrevious}
                         fuelSpentComparedToPrevious={dashboardData.fuelSpentComparedToPrevious}
                         fuelConsumptionPer100kmComparedToPrevious={dashboardData.fuelConsumptionPer100kmComparedToPrevious}
+                        currentOptionName={getSelectCurrentOptionName()}
                     />
 
                     <div className="card shadow-xl lg:col-span-4 xl:col-span-2 bg-base-100">
