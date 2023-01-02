@@ -102,8 +102,8 @@ export const InfoCar = () => {
                 <Breadcrumb page={2}/>
             </div>
             {data.id && (
-                <div className={"flex flex-wrap gap-3"}>
-                    <div className={"card shadow-xl bg-base-100 w-8/12"}>
+                <div className={"grid grid-cols-5 gap-3"}>
+                    <div className={"card shadow-xl bg-base-100 col-span-5 lg:col-span-3 "}>
                         <div className={"card-body"}>
                             <div className={"card-title text-primary text-3xl"}>Car Information</div>
                             <div className={"flex-1 space-y-4"}>
@@ -153,13 +153,11 @@ export const InfoCar = () => {
                                     <div
                                         className={"text-accent text-xl font-extralight"}>{data.carModel.motor.displacement}</div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
                     {data.group.isAdmin === user.idUser && (
-                    <div className={"card shadow-xl bg-base-100 w-3/12"}>
+                    <div className={"card shadow-xl bg-base-100 col-span-5 lg:col-span-2"}>
                         <div className={"card-body"}>
                             <div className={"card-title text-primary text-3xl"}>Danger Zone</div>
                             <div className={"flex-1 space-y-4 h-full"}>
