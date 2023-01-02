@@ -3,12 +3,11 @@ import * as Yup from "yup";
 import React, {useEffect, useState} from "react";
 import {useAppContext} from "@/providers/AppProvider";
 import {ADD_CAR_URL, CAR_MODELS_URL} from "@/URLS";
+import {Link} from "react-router-dom";
 
 export const RegisterCarForm = () => {
     const [cars,setCars] = useState<any[]>([])
-
     const {user, navigate,setCurrentCar,setCarList, carList} = useAppContext();
-
     const fetchCarModels = async () => {
         try {
             const carModelsResponse = await fetch(CAR_MODELS_URL(), {
@@ -142,7 +141,14 @@ export const RegisterCarForm = () => {
                 <input type="date" placeholder="Data de seguro"
                        className="input input-bordered" {...formik.getFieldProps('insuranceDate')}/>
 
-                <button type="submit" className="btn btn-primary mt-6">Submit</button>
+
+
+                <div className="flex flex-row mt-6 justify-between">
+                    <Link to="/dashboard" className={"btn btn-secondary w-5/12"}>
+                        Cancelar
+                    </Link>
+                    <button type="submit" className="btn btn-primary w-5/12">Submit</button>
+                </div>
                 {formik.errors.submition &&
                     <div className={"text-error mt-2"}>{formik.errors.submition}</div>}
 
