@@ -1,7 +1,7 @@
 import {Base} from "@/components/Base";
 import {Breadcrumb} from "@/components/Breadcrumb";
 import {Car} from "@/Types";
-import {CAR_URL} from "@/URLS";
+import {CAR_URL, UPDATE_DATES_URL} from "@/URLS";
 import {useEffect, useState} from "react";
 import {useAppContext} from "@/providers/AppProvider";
 
@@ -11,6 +11,8 @@ export const InfoCar = () => {
     const [data, setData] = useState({} as Car)
     const {user,currentCar,carList,setCarList,setCurrentCar,navigate} = useAppContext();
     const [error, setError] = useState<boolean>(false);
+    const [editField, setEditField] = useState<number>(-1);
+    const [editValue, setEditValue] = useState<string>("");
     const fetchCarData = async () => {
         try {
             const carResponse = await fetch(CAR_URL(currentCar, user.idUser, user.groupId), {
@@ -24,6 +26,48 @@ export const InfoCar = () => {
             return await carResponse.json();
         } catch (error: any) {
             return {error: error.message};
+        }
+    }
+
+    const editDate = async () => {
+        try {
+            const b = editField == 1 ?
+                {
+                    "insuranceDate":new Date(editValue).getTime(),
+                    "group":{
+                        "id":user.groupId
+                    },
+                    "userId":user.idUser
+                } :
+                {
+                    "inspectionDate":new Date(editValue).getTime(),
+                    "group":{
+                        "id":user.groupId
+                    },
+                    "userId":user.idUser
+                }
+            const response = await fetch(UPDATE_DATES_URL(currentCar), {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': user.token
+                },
+                body: JSON.stringify(b),
+            });
+            const data = await response.json();
+            if (editField == 1) {
+                setData((prev) => {
+                    return {...prev, insuranceDate: new Date(data.insuranceDate).toLocaleDateString()}
+                })
+            } else {
+                setData((prev) => {
+                    return {...prev, inspectionDate: new Date(data.inspectionDate).toLocaleDateString()}
+                })
+            }
+        }
+        catch (error: any) {
+            setError(true);
         }
     }
 
@@ -162,14 +206,29 @@ export const InfoCar = () => {
                             <div className={"card-title text-primary text-3xl"}>Danger Zone</div>
                             <div className={"flex-1 space-y-4 h-full"}>
                                 <label htmlFor="delete-modal" className="btn btn-error w-full">Delete Car</label>
-                                <button className="btn btn-error w-full">Edit Inspection Date</button>
-                                <button className="btn btn-error w-full">Edit Insurance Date</button>
+                                <label htmlFor={"edit-modal"} className="btn btn-error w-full" onClick={()=>setEditField(0)}>Edit Inspection Date</label>
+                                <label htmlFor={"edit-modal"} className="btn btn-error w-full" onClick={()=>setEditField(1)}>Edit Insurance Date</label>
                             </div>
                         </div>
                     </div>
                     )}
                 </div>
             )}
+
+
+            <input type="checkbox" id="edit-modal" className="modal-toggle" />
+            <div className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Are you sure you want to change {editField == 0 ? "Inspection Date": "Insurance Date"}</h3>
+                    <input type={"date"} className={"input input-bordered w-full"} value={editValue} onChange={(e)=>setEditValue(e.target.value)}/>
+                    <div className="modal-action">
+                        <label htmlFor="edit-modal" className="btn">Cancel</label>
+                        <label htmlFor="edit-modal" className="btn btn-error"
+                               onClick={() => editDate()}>Confirm</label>
+                    </div>
+                </div>
+            </div>
+            
 
             <input type="checkbox" id="delete-modal" className="modal-toggle"/>
             <label htmlFor="delete-modal" className="modal cursor-pointer">
