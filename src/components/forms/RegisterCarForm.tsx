@@ -150,6 +150,7 @@ export const RegisterCarForm = () => {
                     </Link>
                     }
                     <button type="submit" className={`btn btn-primary ${carList.length !== 0 ? "w-5/12" : "w-full" }`}>Submit</button>
+
                 </div>
                 {formik.errors.submition &&
                     <div className={"text-error mt-2"}>{formik.errors.submition}</div>}
