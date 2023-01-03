@@ -2,7 +2,6 @@ import {LineChartCmp} from "@/components/charts/LineChartCmp";
 import {Base} from "@/components/Base";
 import {Statistics} from "@/components/Statistics";
 import {Breadcrumb} from "@/components/Breadcrumb";
-import {BarChartCmp} from "@/components/charts/BarChartCmp";
 import {MapContainer, TileLayer} from "react-leaflet";
 import {LeftletRoutingMachine} from "@/components/LeftletRoutingMachine";
 import {useAppContext} from "@/providers/AppProvider";
@@ -120,22 +119,17 @@ export const Dashboard = () => {
                         currentOptionName={getSelectCurrentOptionName()}
                     />
 
-                    <div className="card shadow-xl col-span-4 xl:col-span-2 bg-base-100">
+                    <div className="card shadow-xl col-span-4 lg:col-span-2 bg-base-100">
                         <div className="card-body">
-                            <LineChartCmp/>
+                            { Number(selectRef.current?.value) === 0? <LineChartCmp value={100}/>:
+                               <LineChartCmp value={1000}/>
+                            }
                         </div>
                     </div>
-
-                    <div className="card shadow-xl col-span-4 xl:col-span-2 bg-base-100">
-                        <div className="card-body">
-                            <BarChartCmp/>
-                        </div>
-                    </div>
-
-                    <div className="card shadow-xl col-span-4 bg-base-100">
+                    <div className="card shadow-xl col-span-4 lg:col-span-2 bg-base-100">
                         <div className="card-body">
                             <div className={"card-title text-primary text-3xl"}>Map</div>
-                            <MapContainer className={"h-[40em]"} zoom={13} scrollWheelZoom={true}>
+                            <MapContainer className={"h-[30em]"} zoom={13} scrollWheelZoom={true}>
                                 <TileLayer
                                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

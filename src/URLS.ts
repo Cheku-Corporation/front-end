@@ -20,3 +20,6 @@ export const NOTIFICATIONS_URL = (groupId:string|number) => `${HOST}/api/group/$
 export const DELETE_NOTIFICATIONS_URL = (groupId:string|number,notificationId:string|number) => `${HOST}/api/group/${groupId}/notification/${notificationId}`
 
 export const UPDATE_DATES_URL= (cardId:string|number) => `${HOST}/api/user/group/car/${cardId}/`
+
+export const SPEED_INFORMATION_URL = (carId:string|number) => `${HOST}/api/car/${carId}/speedinformation`
+export const FUEL_CONSUMPTION_URL = (carId:string|number, period: string) => `${HOST}/api/car/${carId}/fuelConsumption?period=${period}`
