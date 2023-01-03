@@ -144,10 +144,13 @@ export const RegisterCarForm = () => {
 
 
                 <div className="flex flex-row mt-6 justify-between">
+                    { carList.length !== 0 &&
                     <Link to="/dashboard" className={"btn btn-secondary w-5/12"}>
                         Cancelar
                     </Link>
-                    <button type="submit" className="btn btn-primary w-5/12">Submit</button>
+                    }
+                    <button type="submit" className={`btn btn-primary ${carList.length !== 0 ? "w-5/12" : "w-full" }`}>Submit</button>
+
                 </div>
                 {formik.errors.submition &&
                     <div className={"text-error mt-2"}>{formik.errors.submition}</div>}

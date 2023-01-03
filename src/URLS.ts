@@ -19,3 +19,4 @@ export const USER_CARS_URL = (userId:string, groupId:string) => `${HOST}/api/use
 export const NOTIFICATIONS_URL = (groupId:string|number) => `${HOST}/api/group/${groupId}/notifications`
 export const DELETE_NOTIFICATIONS_URL = (groupId:string|number,notificationId:string|number) => `${HOST}/api/group/${groupId}/notification/${notificationId}`
 
+export const UPDATE_DATES_URL= (cardId:string|number) => `${HOST}/api/user/group/car/${cardId}/`
