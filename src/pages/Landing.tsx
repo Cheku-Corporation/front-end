@@ -7,9 +7,6 @@ export const Landing = () => {
                         <div className="navbar px-0">
                             <div className="navbar-start">
                                 <div className="dropdown">
-                                    <label tabIndex={0} className="btn btn-circle btn-primary lg:hidden mr-1">
-                                        <i className='bi bi-list text-2xl'></i>
-                                    </label>
                                     <ul tabIndex={0}
                                         className="dropdown-content mt-1 w-52 menu menu-compact p-2 bg-base-200 shadow rounded-box">
                                         <li><a href="/login">Login</a></li>
@@ -18,7 +15,7 @@ export const Landing = () => {
                                 <a className="btn btn-ghost normal-case text-2xl">Cheku</a>
                             </div>
                             <div className="navbar-end hidden lg:flex">
-                                <ul className="menu menu-horizontal p-0 font-medium">
+                                <ul className="menu menu-horizontal p-0 font-medium text-2xl">
                                     <li><a href="/login">Login</a></li>
                                 </ul>
                             </div>
@@ -50,7 +47,7 @@ export const Landing = () => {
                         <div className='text-center'>
                             <h2 className='text-3xl sm:text-5xl font-bold mb-4'>What We Do</h2>
                             <p className='text-lg sm:text-2xl mb-6 md:mb-14'>
-                                Save time managing advertising & Content for your business.
+                                Save time managing your car's data.
                             </p>
                         </div>
 
@@ -59,10 +56,9 @@ export const Landing = () => {
                                 className="card bg-base-200 transform-gpu transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
                                 <div className="card-body items-center text-center gap-4">
                                     <i className='bi bi-search text-4xl'></i>
-                                    <h2 className="card-title">SEO Services</h2>
+                                    <h2 className="card-title">Live Stream</h2>
                                     <p>
-                                        This is a wider card with <br className='hidden xl:inline'/>supporting text
-                                        below as a <br className='hidden xl:inline'/> natural content.
+                                        Watch live all the <br className='hidden xl:inline'/>details including <br className='hidden xl:inline'/><b>location</b> of you car!
                                     </p>
                                 </div>
                             </div>
@@ -71,10 +67,9 @@ export const Landing = () => {
                                 className="card bg-base-200 transform-gpu transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
                                 <div className="card-body items-center text-center gap-4">
                                     <i className='bi bi-chat-left-dots text-4xl'></i>
-                                    <h2 className="card-title">Social Content</h2>
+                                    <h2 className="card-title">Info Management</h2>
                                     <p>
-                                        This is a wider card with <br className='hidden xl:inline'/>supporting text
-                                        below as a <br className='hidden xl:inline'/> natural content.
+                                        All the information <br className='hidden xl:inline'/> about your car <br className='hidden xl:inline'/> in one place.
                                     </p>
                                 </div>
                             </div>
@@ -83,46 +78,9 @@ export const Landing = () => {
                                 className="card bg-base-200 transform-gpu transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
                                 <div className="card-body items-center text-center gap-4">
                                     <i className='bi bi-badge-ad text-4xl'></i>
-                                    <h2 className="card-title">Creative ads</h2>
+                                    <h2 className="card-title">Multiple Car</h2>
                                     <p>
-                                        This is a wider card with <br className='hidden xl:inline'/>supporting text
-                                        below as a <br className='hidden xl:inline'/> natural content.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div
-                                className="card bg-base-200 transform-gpu transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
-                                <div className="card-body items-center text-center gap-4">
-                                    <i className='bi bi-card-checklist text-4xl'></i>
-                                    <h2 className="card-title">Brand Identity</h2>
-                                    <p>
-                                        This is a wider card with <br className='hidden xl:inline'/>supporting text
-                                        below as a <br className='hidden xl:inline'/> natural content.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div
-                                className="card bg-base-200 transform-gpu transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
-                                <div className="card-body items-center text-center gap-4">
-                                    <i className='bi bi-wallet2 text-4xl'></i>
-                                    <h2 className="card-title">Budget & Marketing</h2>
-                                    <p>
-                                        This is a wider card with <br className='hidden xl:inline'/>supporting text
-                                        below as a <br className='hidden xl:inline'/> natural content.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div
-                                className="card bg-base-200 transform-gpu transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
-                                <div className="card-body items-center text-center gap-4">
-                                    <i className='bi bi-funnel text-4xl'></i>
-                                    <h2 className="card-title">Optimize conversions</h2>
-                                    <p>
-                                        This is a wider card with <br className='hidden xl:inline'/>supporting text
-                                        below as a <br className='hidden xl:inline'/> natural content.
+                                        You can manage the <br className='hidden xl:inline'/>number of cars you want!
                                     </p>
                                 </div>
                             </div>

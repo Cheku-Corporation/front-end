@@ -1,13 +1,13 @@
 import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {useEffect, useState} from "react";
 import {useAppContext} from "@/providers/AppProvider";
-import {VELOCITIES_URL} from "@/URLS";
+import {SPEED_INFORMATION_URL, VELOCITIES_URL} from "@/URLS";
 
-export const LineChartCmp = () => {
+export const LineChartCmp = (props:{value:number}) => {
     const [lineChartData, setLineChartData] = useState<any[]>([])
     const {user,currentCar} = useAppContext();
     useEffect(() => {
-        fetch(VELOCITIES_URL(currentCar,100),
+        fetch(VELOCITIES_URL(currentCar,props.value),
             {
                 method: 'GET',
                 headers: {
@@ -29,11 +29,11 @@ export const LineChartCmp = () => {
             <h2 className="card-title text-primary text-3xl">Car Comsumption</h2>
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart
-                    height={300}
+                    height={400}
                     data={lineChartData}
                 >
                     <CartesianGrid strokeDasharray="3 3"/>
-                    <XAxis dataKey="date"/>
+                    <XAxis dataKey="date" tick={false}/>
                     <YAxis/>
                     <Tooltip/>
                     <Legend/>

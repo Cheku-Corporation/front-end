@@ -1,5 +1,5 @@
 import {Base} from "@/components/Base";
-import {MapContainer, Marker, TileLayer} from "react-leaflet";
+import {MapContainer, Marker, TileLayer, useMap} from "react-leaflet";
 import {Breadcrumb} from "@/components/Breadcrumb";
 import React, {useEffect, useState} from "react";
 import {LiveStatistics} from "@/components/LiveStatistics";
@@ -9,6 +9,7 @@ import {Lightbulb, LocalGasStationOutlined, OilBarrelOutlined, Water} from "@mui
 import {useAppContext} from "@/providers/AppProvider";
 import humanizeDuration  from 'humanize-duration'
 import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {LiveMarker} from "@/components/LiveMarker";
 
 export const Live = () => {
 
@@ -16,7 +17,7 @@ export const Live = () => {
     const {user, currentCar} = useAppContext();
 
     const [speedChart, setSpeedChart] = useState<[any]>([{"time": 0, "speed": 0}]);
-    const [RPMChart, setRPMChart] = useState<[any]>([{"time": 0, "rpm": 0}]);
+
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch(LIVE_URL(currentCar),
@@ -34,9 +35,6 @@ export const Live = () => {
                return [...prev, {"time": prev.length, "speed": data.currentSpeed}]
             })
 
-            setRPMChart((prev): any => {
-               return [...prev, {"time": prev.length, "rpm": data.currentRPM}]
-            })
         }
 
         const interval = setInterval(fetchData, 1000)
@@ -49,13 +47,7 @@ export const Live = () => {
         <Base>
             <div className="flex lg:flex-row gap-4 pt-2">
                 <Breadcrumb page={1}/>
-                <div className="flex text-xl">
-                    {liveData.onTheRoad &&
-                    <div className={"my-auto"}><span
-                        className={"font-bold pr-2"}>Current Trip Time:</span>{humanizeDuration(liveData.timeOnTravel)}
-                    </div>
-                    }
-                </div>
+
             </div>
             {liveData.onTheRoad ?
                 <>
@@ -84,6 +76,7 @@ export const Live = () => {
                                         />
                                         <Marker
                                             position={[liveData.localization.latitude, liveData.localization.longitude]}/>
+                                        <LiveMarker coordinates={liveData.localization}/>
                                     </MapContainer>
                                 )}
                             </div>

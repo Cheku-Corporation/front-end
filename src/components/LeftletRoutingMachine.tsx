@@ -45,10 +45,9 @@ export const LeftletRoutingMachine: React.FC<{coordinates:coordinatesProps[]}> =
                     },
                     createMarker: function(i, wp) {
                         let options = {};
-                        console.log(i);
                         if (i === 1) {
                             options.icon = L.icon({
-                                iconUrl: 'end-icon.png',
+                                iconUrl: '/end-icon.png',
                                 iconSize: [25, 41],
                                 iconAnchor: [12, 41],
                                 popupAnchor: [1, -34],
