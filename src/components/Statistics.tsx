@@ -42,9 +42,9 @@ export const Statistics:React.FC<StatisticsProps> = (props:StatisticsProps) => {
             {cards.map((card, index) => {
 
                 return (
-                    <div key={index} className="stats stats-vertical lg:stats-horizontal shadow">
+                    <div key={index} className="stats stats-vertical lg:stats-horizontal shadow col-span-4 lg:col-span-1">
                             <div className="stat">
-                                <div className="stat-figure text-secondary">
+                                <div className="stat-figure inline lg:hidden xl:inline ">
                                     <card.icon className={"text-primary"} sx={{fontSize: '6.5em'}}/>
                                 </div>
                                 <div className="stat-title">{card.title}</div>

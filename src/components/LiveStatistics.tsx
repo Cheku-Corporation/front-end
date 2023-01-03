@@ -32,8 +32,8 @@ export const LiveStatistics:React.FC<LiveStatisticsProps> = (props) => {
     return (<>
             {cards.map((card, index) => {
                 return (
-                    <div key={index} className="stats stats-vertical lg:stats-horizontal shadow ">
-                        <div className="stat-figure text-secondary">
+                    <div key={index} className="stats stats-vertical lg:stats-horizontal lg:col-span-1 col-span-4 shadow  ">
+                        <div className="stat-figure text-secondary inline  lg:hidden xl:inline">
                             <card.icon className={"text-primary"} sx={{fontSize: '6.5em'}}/>
                         </div>
                         <label className="swap">

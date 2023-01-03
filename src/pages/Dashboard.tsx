@@ -103,7 +103,7 @@ export const Dashboard = () => {
                 </select>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 pb-4">
+            <div className="grid grid-cols-4 gap-3 pb-4">
                 {dashboardData ? <>
                     <Statistics
                         averageSpeed={dashboardData.averageSpeed}
@@ -120,19 +120,19 @@ export const Dashboard = () => {
                         currentOptionName={getSelectCurrentOptionName()}
                     />
 
-                    <div className="card shadow-xl lg:col-span-4 xl:col-span-2 bg-base-100">
+                    <div className="card shadow-xl col-span-4 xl:col-span-2 bg-base-100">
                         <div className="card-body">
                             <LineChartCmp/>
                         </div>
                     </div>
 
-                    <div className="card shadow-xl lg:col-span-4 xl:col-span-2 bg-base-100">
+                    <div className="card shadow-xl col-span-4 xl:col-span-2 bg-base-100">
                         <div className="card-body">
                             <BarChartCmp/>
                         </div>
                     </div>
 
-                    <div className="card shadow-xl lg:col-span-6 xl:col-span-4 bg-base-100">
+                    <div className="card shadow-xl col-span-4 bg-base-100">
                         <div className="card-body">
                             <div className={"card-title text-primary text-3xl"}>Map</div>
                             <MapContainer className={"h-[40em]"} zoom={13} scrollWheelZoom={true}>
